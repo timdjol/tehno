@@ -1,0 +1,145 @@
+body{
+    background-color: #f8fafc;
+}
+.sidebar ul li{
+    display: block;
+    margin-bottom: 10px;
+    padding-left: 0;
+}
+.sidebar ul li.active a{
+    background-color: #0641a1;
+    color: #fff;
+}
+.sidebar ul li::after{
+    display: none;
+}
+.sidebar ul li a{
+    color: #333;
+    background-color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px 20px;
+    transition: all .3s ease;
+    border-radius: 20px;
+}
+.sidebar ul li a i{
+    margin-right: 5px;
+}
+.sidebar ul li a:hover{
+    background-color: #0641a1;
+    color: #fff;
+}
+.admin{
+    padding: 60px 0;
+}
+.admin table ul {
+    margin-bottom: 0;
+}
+.admin table ul li{
+    display: inline-block;
+    padding-left: 0;
+    margin: 10px 0;
+}
+.admin table ul li a.btn{
+    font-size: 14px;
+    padding: 8px 10px;
+    border-radius: 5px;
+}
+.admin table ul li::after{
+    display: none;
+}
+.admin a.btn{
+    padding: 10px 30px;
+    text-decoration: none;
+    color: #fff;
+    border: none;
+}
+.admin a.add{
+    background-color: green;
+    border-radius: 5px;
+}
+.admin a.view{
+    background-color: #0641a1;
+    border-radius: 5px;
+}
+.admin a.edit{
+    background-color: orange;
+    border-radius: 5px;
+}
+.admin form .delete{
+    background-color: red;
+    height: auto;
+    color: #fff;
+    width: auto;
+    display: inline-block;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.admin form .cancel{
+    padding: 9px 30px;
+    margin-left: 10px;
+}
+.admin .input-group{
+    margin-bottom: 10px;
+}
+.admin label{
+    display: block;
+}
+.admin .form-label label{
+    display: inline-block;
+}
+.admin img{
+    max-width: 120px;
+    margin-bottom: 10px;
+}
+.admin table img{
+    max-width: 200px;
+    max-height: 200px;
+}
+.admin form input[type="checkbox"]{
+    display: inline-block;
+    width: auto;
+    height: auto;
+    margin-right: 5px;
+}
+.dashboard table{
+    margin-bottom: 0;
+}
+.dashboard-item{
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 20px;
+    background-color: #fff;
+    border: none;
+}
+.dashboard-item .num{
+    font-weight: bold;
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #0641a1;
+    line-height: 1.2;
+}
+.dashboard-item h5{
+    font-size: 18px;
+}
+.dashboard .home, .dashboard .faq{
+    margin-top: 40px;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+}
+.dashboard .btn-wrap{
+    margin-top: 20px;
+}
+.admin input, .admin select, .admin textarea{
+    border-radius: 5px;
+}
+.order a{
+    text-decoration: none;
+    color: #0641a1;
+}
+table tr{
+    border-color: #0641a1;
+}
