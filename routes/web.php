@@ -49,6 +49,7 @@ Route::middleware('set_locale')->group(function(){
                 Route::resource("faqs", "App\Http\Controllers\Admin\FaqController");
                 Route::resource("orders", "App\Http\Controllers\Admin\OrderController");
                 Route::resource('categories', 'App\Http\Controllers\Admin\CategoryController');
+                Route::resource('brands', 'App\Http\Controllers\Admin\BrandController');
                 Route::resource('products', 'App\Http\Controllers\Admin\ProductController');
                 Route::resource('products/{product}/skus', 'App\Http\Controllers\Admin\SkuController');
                 Route::resource("contacts", "App\Http\Controllers\Admin\ContactController");

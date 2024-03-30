@@ -22,7 +22,8 @@
                             <h1>Продукции</h1>
                         </div>
                         <div class="col-md-5">
-                            <a href="{{ route('products.create') }}" class="btn add">Добавить</a>
+                            <a href="{{ route('products.create') }}" class="btn add"><i class="fa-regular
+                            fa-plus"></i> Добавить</a>
                         </div>
                     </div>
                     <table class="table">
@@ -31,7 +32,8 @@
                             <th>Изображение</th>
                             <th>Название</th>
                             <th>Категория</th>
-{{--                            <th>Кол-во пред</th>--}}
+                            <th>Бренд</th>
+                            {{--                            <th>Кол-во пред</th>--}}
                             <th>Действия</th>
                         </tr>
                         </thead>
@@ -41,19 +43,20 @@
                                 <td><img src="{{ Storage::url($product->image) }}" alt=""></td>
                                 <td>{{ $product->title }}</td>
                                 <td>{{ $product->category->title }}</td>
+                                <td>{{ $product->brand->title }}</td>
 {{--                                <td>{{ dd($product->sku) }}</td>--}}
                                 <td>
                                     <form action="{{ route('products.destroy', $product) }}" method="post">
                                         <ul>
                                             <li><a class="btn view" href="{{ route('products.show', $product)
-                                            }}">Открыть</a></li>
+                                            }}"><i class="fa-regular fa-eye"></i></a></li>
                                             <li><a class="btn add" href="{{ route('skus.index', $product)
                                             }}">Skus</a></li>
                                             <li><a class="btn edit" href="{{ route('products.edit', $product)
-                                            }}">Редактировать</a></li>
+                                            }}"><i class="fa-regular fa-pen-to-square"></i></a></li>
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn delete">Удалить</button>
+                                            <button class="btn delete"><i class="fa-regular fa-trash"></i></button>
                                         </ul>
                                     </form>
                                 </td>

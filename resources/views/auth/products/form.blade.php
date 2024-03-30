@@ -40,6 +40,7 @@
                         <div class="form-group">
                             <label for="">Категория</label>
                             <select name="category_id">
+                                <option>Выбрать</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}"
                                             @isset($product)
@@ -48,6 +49,22 @@
                                             @endif
                                             @endisset
                                     >{{ $category->title }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @include('auth.layouts.error', ['fieldname' => 'brand_id'])
+                        <div class="form-group">
+                            <label for="">Бренд</label>
+                            <select name="brand_id">
+                                <option>Выбрать</option>
+                                @foreach($brands as $brand)
+                                    <option value="{{ $brand->id }}"
+                                            @isset($product)
+                                                @if($product->brand_id == $brand->id)
+                                                    selected
+                                            @endif
+                                            @endisset
+                                    >{{ $brand->title }}</option>
                                 @endforeach
                             </select>
                         </div>

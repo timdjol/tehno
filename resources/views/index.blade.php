@@ -4,203 +4,115 @@
 
 @section('content')
 
-    <div class="slider">
-        <div class="owl-carousel owl-slider">
-            @foreach($sliders as $slider)
-                <div class="slider-item" style="background-image: url({{ Storage::url($slider->image) }})">
-                    <div class="container">
-                        <div class="text-wrap">
-                            <h2>{{ $slider->__('title') }}</h2>
-                            @if($slider->link)
-                                <div class="btn-wrap">
-                                    <a href="{{ $slider->link }}" class="more">@lang('main.readmore')</a>
-                                </div>
-                            @endif
+<div class="main">
+    <!-- ГЛАВНАЯ -->
+    <div class="conatiner">
+        <section id="home">
+            <div class="home__photos-scale">
+                <div class="home__photos">
+                    <div class="home__photos-hood">
+                        <img src="{{route('index')}}/img/front/intro/hood.png" alt="" />
+                    </div>
+
+                    <div class="home__photos-gas_stove">
+                        <img src="{{route('index')}}/img/front/intro/gas_stove.png" alt="" />
+                    </div>
+
+                    <div class="home__photos-fridge">
+                        <img src="{{route('index')}}/img/front/intro/fridge.png" alt="" />
+                    </div>
+
+                    <div class="home__photos-vacuum_cleaner">
+                        <img
+                                src="{{route('index')}}/img/front/intro/vacuum_cleaner.png"
+                                alt=""
+                        />
+                    </div>
+                </div>
+            </div>
+
+            @foreach($homes as $home)
+                <div class="home__title">
+                    <div class="home__title-one">
+                        {{ $home->title }}
+                    </div>
+                    <div class="home__title-two">
+                        {{ $home->descr }}
+                    </div>
+                    <button class="home__button">Перейти в каталог</button>
+                </div>
+            @endforeach
+        </section>
+    </div>
+
+    <!-- КЛИЕНТЫ -->
+    <div id="clients" class="title">КЛИЕНТЫ</div>
+    <div class="container">
+        <section class="clients__content">
+            @foreach($clients as $client)
+                <div class="items item_{{ $loop->iteration }}">
+                    <img
+                            class="responsive"
+                            src="{{ Storage::url($client->image) }}"
+                    />
+                </div>
+            @endforeach
+
+
+        </section>
+    </div>
+
+    <!-- ДОСТАВКА -->
+    <div id="delivery" class="title">ДОСТАВКА</div>
+    <div class="container">
+        <section class="delivery__content">
+            @foreach($deliveries as $delivery)
+                <div class="delivery__card">
+                    <img
+                            class="delivery__card-img"
+                            src="{{ Storage::url($delivery->image) }}"
+                            alt=""
+                    />
+                    <div class="delivery__card-info">
+                        <div class="delivery__card-title">{{ $loop->iteration }}-этап</div>
+                        <div class="delivery__card-text">
+                            {{ $delivery->title }}
                         </div>
                     </div>
                 </div>
             @endforeach
-        </div>
+        </section>
     </div>
 
-    <div class="products novelties">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>@lang('main.news')</h2>
-                    <div class="owl-carousel owl-products">
-                        @foreach($news->map->skus->flatten() as $sku)
-                            @include('layouts.cart', compact('sku'))
-                        @endforeach
+    <!-- КОНТАКТЫ -->
+    <div id="contacts" class="title">КОНТАКТЫ</div>
+    <div class="container">
+        <section class="contacts__content">
+            {!! $home->contacts !!}
+            <button class="contacts__button">Оставить заявку</button>
+        </section>
+    </div>
+
+    <!-- FAQ -->
+    <div id="faq" class="title">FAQ</div>
+    <div class="container">
+        <section class="faq__content">
+            <div class="accordion-container">
+                @foreach($faqs as $faq)
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            {{ $faq->title }}
+                            <span class="icon">+</span>
+                        </button>
+                        <div class="accordion-content">
+                            {!! $faq->description !!}
+                        </div>
                     </div>
-                </div>
+                @endforeach
+
             </div>
-        </div>
+        </section>
     </div>
+</div>
 
-    <div class="products coming">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>@lang('main.soon')</h2>
-                    <div class="owl-carousel owl-products">
-                        @foreach($soons->map->skus->flatten() as $sku)
-                            @include('layouts.cart', compact('sku'))
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-{{--    <div class="products capsule">--}}
-{{--        <div class="container">--}}
-{{--            <div class="row">--}}
-{{--                <div class="col-md-12">--}}
-{{--                    <h2>Капсула</h2>--}}
-{{--                    <div class="owl-carousel owl-products">--}}
-{{--                        @foreach($capsules->map->skus->flatten() as $sku)--}}
-{{--                            @include('layouts.cart', compact('sku'))--}}
-{{--                        @endforeach--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-
-    <div class="products clothes">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>@lang('main.cloth')</h2>
-                    <div class="owl-carousel owl-products">
-                        @foreach($clothes->map->skus->flatten() as $sku)
-                            @include('layouts.cart', compact('sku'))
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="products sport">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>@lang('main.sportswear')</h2>
-                    <div class="owl-carousel owl-products">
-                        @foreach($sports->map->skus->flatten() as $sku)
-                            @include('layouts.cart', compact('sku'))
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="products home">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>@lang('main.homewear')</h2>
-                    <div class="owl-carousel owl-products">
-                        @foreach($homes->map->skus->flatten() as $sku)
-                            @include('layouts.cart', compact('sku'))
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="products beach">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>@lang('main.beach')</h2>
-                    <div class="owl-carousel owl-products">
-                        @foreach($beaches->map->skus->flatten() as $sku)
-                            @include('layouts.cart', compact('sku'))
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="products underwear">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>@lang('main.underwear')</h2>
-                    <div class="owl-carousel owl-products">
-                        @foreach($underwears->map->skus->flatten() as $sku)
-                            @include('layouts.cart', compact('sku'))
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="products socks">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>@lang('main.socks')</h2>
-                    <div class="owl-carousel owl-products">
-                        @foreach($socks->map->skus->flatten() as $sku)
-                            @include('layouts.cart', compact('sku'))
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="products access">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>@lang('main.access')</h2>
-                    <div class="owl-carousel owl-products">
-                        @foreach($access->map->skus->flatten() as $sku)
-                            @include('layouts.cart', compact('sku'))
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-{{--    <div class="products cosmetic">--}}
-{{--        <div class="container">--}}
-{{--            <div class="row">--}}
-{{--                <div class="col-md-12">--}}
-{{--                    <h2>Косметика</h2>--}}
-{{--                    <div class="owl-carousel owl-products">--}}
-{{--                        @foreach($cosmetics->map->skus->flatten() as $sku)--}}
-{{--                            @include('layouts.cart', compact('sku'))--}}
-{{--                        @endforeach--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-
-    <div class="products sale">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>SALE</h2>
-                    <div class="owl-carousel owl-products">
-                        @foreach($sales->map->skus->flatten() as $sku)
-                            @include('layouts.cart', compact('sku'))
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection

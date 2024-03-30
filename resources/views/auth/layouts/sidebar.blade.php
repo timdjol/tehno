@@ -5,6 +5,7 @@
             Консоль</a></li>
             <li @routeactive('categories.index')><a href="{{ route('categories.index')}}"><i class="fa-regular
             fa-layer-group"></i> Категории</a></li>
+            <li @routeactive('brands.index')><a href="{{ route('brands.index')}}"><i class="fa-regular fa-font-awesome"></i> Бренды</a></li>
             <li @routeactive('products.index')><a href="{{ route('products.index')}}"><i class="fa-brands
             fa-product-hunt"></i> Продукции</a></li>
             <li @routeactive('properties.index')><a href="{{ route('properties.index')}}"><i class="fa-regular fa-list"></i> Свойства</a></li>

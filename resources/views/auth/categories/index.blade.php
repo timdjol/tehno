@@ -22,7 +22,8 @@
                             <h1>Категории</h1>
                         </div>
                         <div class="col-md-5">
-                            <a class="btn add" href="{{ route('categories.create') }}">Добавить</a>
+                            <a class="btn add" href="{{ route('categories.create') }}"><i class="fa-regular
+                            fa-plus"></i> Добавить</a>
                         </div>
                     </div>
                     <table class="table">
@@ -41,13 +42,11 @@
                                 <td>
                                     <form action="{{ route('categories.destroy', $category) }}" method="post">
                                         <ul>
-                                            <li><a class="btn view" href="{{ route('categories.show', $category)
-                                            }}">Открыть</a></li>
                                             <li><a class="btn edit" href="{{ route('categories.edit', $category)
-                                            }}">Редактировать</a></li>
+                                            }}"><i class="fa-regular fa-pen-to-square"></i></a></li>
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn delete">Удалить</button>
+                                            <button class="btn delete"><i class="fa-regular fa-trash"></i></button>
                                         </ul>
                                     </form>
                                 </td>

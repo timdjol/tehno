@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\Translatable;
-use App\Services\CurrencyConversion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -12,10 +10,14 @@ class Product extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['code', 'title', 'category_id', 'description', 'image'];
+    protected $fillable = ['code', 'title', 'category_id', 'brand_id', 'description', 'image'];
 
     public function category(){
         return $this->belongsTo(Category::class);
+    }
+
+    public function brand(){
+        return $this->belongsTo(Brand::class);
     }
 
     public function skus(){

@@ -143,3 +143,8 @@ body{
 table tr{
     border-color: #0641a1;
 }
+.admin .wrap{
+    border-radius: 20px;
+    background-color: #fff;
+    padding: 20px;
+}

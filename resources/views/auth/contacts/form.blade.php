@@ -158,7 +158,7 @@
                                                     <div class="alert alert-danger">{{ $message }}</div>
                                                     @enderror
                                                     <div class="form-group">
-                                                        <label for="">Instagram</label>
+                                                        <label for="">Facebook</label>
                                                         <input type="text" name="facebook" value="{{ old('facebook', isset($contact) ?
                                 $contact->facebook : null) }}">
                                                     </div>

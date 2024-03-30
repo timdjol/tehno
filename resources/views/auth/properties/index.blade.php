@@ -22,7 +22,8 @@
                             <h1>Свойства продукций</h1>
                         </div>
                         <div class="col-md-5">
-                            <a class="btn add" href="{{ route('properties.create') }}">Добавить</a>
+                            <a class="btn add" href="{{ route('properties.create') }}"><i class="fa-regular
+                            fa-plus"></i> Добавить</a>
                         </div>
                     </div>
                     <table class="table">
@@ -44,12 +45,12 @@
 {{--                                            <li><a class="btn view" href="{{ route('properties.show', $property)--}}
 {{--                                            }}">Открыть</a></li>--}}
                                             <li><a class="btn edit" href="{{ route('properties.edit', $property)
-                                            }}">Редактировать</a></li>
+                                            }}"><i class="fa-regular fa-pen-to-square"></i></a></li>
                                             <li><a class="btn add" href="{{ route('property-options.index', $property)
                                             }}">Значение свойства</a></li>
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn delete">Удалить</button>
+                                            <button class="btn delete"><i class="fa-regular fa-trash"></i></button>
                                         </ul>
                                     </form>
                                 </td>

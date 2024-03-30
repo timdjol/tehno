@@ -1,0 +1,127 @@
+/* 1024 */
+@media (max-width: 1080px) {
+    .navbar__dropup-desktop {
+        display: none;
+    }
+
+    .navbar__bottom-a {
+        display: none;
+    }
+
+    .navbar__bottom-ul {
+        display: block;
+        margin: 0 auto;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    .navbar__bottom-order {
+        box-shadow: 2px 2px 20px 0px rgba(0, 0, 0, 0.25);
+    }
+
+    .home__photos-scale {
+        display: flex;
+        justify-content: center;
+        scale: 1;
+    }
+    .home__title {
+        display: none;
+    }
+
+    .li-nav {
+        display: none;
+    }
+
+    .burger {
+        display: flex;
+    }
+
+    .navbar__top-ul {
+        display: flex;
+        position: relative;
+    }
+
+    .delivery__content {
+        grid-template-columns: 1fr;
+        padding: 40px;
+    }
+
+    .delivery__card-img {
+        max-width: 400px;
+    }
+}
+
+/* 800 */
+@media (max-width: 800px) {
+    .footer-section {
+        flex: 1 0 100%;
+        margin-bottom: 30px;
+    }
+
+    .footer-copyright {
+        display: block;
+    }
+
+    .clients__content {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .items {
+        padding: 20px;
+    }
+
+    .item_3 {
+        border-top-right-radius: 50px;
+        border: var(--border);
+    }
+
+    .item_4 {
+        border: 0;
+        border-top-right-radius: 0;
+        border-left: var(--border);
+        border-bottom: var(--border);
+    }
+
+    .item_5 {
+        border-left: var(--border);
+        border-right: var(--border);
+        border-bottom: var(--border);
+    }
+
+    .item_7 {
+        border-left: var(--border);
+    }
+
+    .item_8 {
+        border-bottom: var(--border);
+    }
+
+    .item_9 {
+        border: 0;
+        border-bottom-left-radius: 0;
+        border-right: var(--border);
+    }
+
+    .item_10 {
+        border-bottom: var(--border);
+        border-right: var(--border);
+        border-left: var(--border);
+        border-bottom-left-radius: 50px;
+    }
+}
+
+/* 640 */
+@media (max-width: 640px) {
+    .delivery__card {
+        display: grid;
+        grid-template-columns: 1fr;
+        /* gap: 25px; */
+    }
+}
+
+/* 540 */
+@media (max-width: 540px) {
+    .home__photos-scale {
+        scale: 0.8;
+    }
+}

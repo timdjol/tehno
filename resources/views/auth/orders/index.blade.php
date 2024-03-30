@@ -46,16 +46,16 @@
                                             @else
                                                 {{ route('person.orders.show', $order) }}
                                             @endadmin">
-                                                Открыть
+                                                <i class="fa-regular fa-eye"></i>
                                             </a>
                                         </li>
                                         @admin
                                         <li><a class="btn edit" href="{{ route('orders.edit', $order)
-                                            }}">Редактировать</a></li>
+                                            }}"><i class="fa-regular fa-pen-to-square"></i></a></li>
                                         <form action="{{ route('orders.destroy', $order) }}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn delete">Удалить</button>
+                                            <button class="btn delete"><i class="fa-regular fa-trash"></i></button>
                                         </form>
                                         @endadmin
                                     </ul>

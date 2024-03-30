@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductsFilterRequest;
 use App\Http\Requests\SubscriptionRequest;
 use App\Models\Category;
+use App\Models\Client;
 use App\Models\Currency;
+use App\Models\Delivery;
+use App\Models\Home;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\Faq;
@@ -20,8 +23,11 @@ class MainController extends Controller
 {
     public function index()
     {
-
-        return view('index');
+        $homes = Home::get();
+        $clients = Client::get();
+        $deliveries = Delivery::get();
+        $faqs = Faq::get();
+        return view('index', compact('homes', 'clients', 'deliveries', 'faqs'));
     }
 
     public function catalog(ProductsFilterRequest $request)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
@@ -31,8 +32,9 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::get();
+        $brands = Brand::get();
         $properties = Property::get();
-        return view('auth.products.form', compact('categories', 'properties'));
+        return view('auth.products.form', compact('categories', 'properties', 'brands'));
     }
 
     /**
@@ -42,7 +44,6 @@ class ProductController extends Controller
     {
         $request['code'] = Str::slug($request->title);
         $params = $request->all();
-        dd($params);
         unset($params['image']);
         if($request->has('image')){
             if($product->image != null) {
@@ -87,10 +88,11 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::get();
+        $brands = Brand::get();
         $properties = Property::get();
         $images = Image::where('product_id', $product->id)->get();
         session()->flash('success', 'Продукция ' . $product->title . ' добавлена');
-        return view('auth.products.form', compact('product', 'categories', 'properties', 'images'));
+        return view('auth.products.form', compact('product', 'categories', 'properties', 'images', 'brands'));
     }
 
     /**

@@ -30,15 +30,5 @@ class Sku extends Model
         return $this->price;
     }
 
-    /* получить цену в валюте сессии */
-    public function getPriceAttribute($value) {
-        return round(CurrencyConversion::convert($value), 0);
-    }
-
-    /* получить цену в данной валюте */
-    public function getPriceInCurrency(Currency $currency) {
-        return round(CurrencyConversion::convert($this->price,  CurrencyConversion::getCurrentCurrencyFromSession()
-            ->code, $currency->code), 0);
-    }
 
 }

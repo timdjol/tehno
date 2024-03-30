@@ -1,0 +1,948 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-bg: #d4dde9;
+    --color-orange: #faca00;
+    --color-blue: #0741a1;
+    --color-blue-light: #4767b8;
+    --font-size-1: 16px;
+    --font-size-2: 50px;
+    --font-size-3: 60px;
+    --font-size-4: 40px;
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --border: 1px solid #000000;
+    --line-height: 30px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding: 130px;
+}
+
+body {
+    background-color: var(--color-bg);
+}
+
+input {
+    border: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.title {
+    color: var(--color-black);
+    font-size: var(--font-size-4);
+    font-weight: var(--font-semibold);
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+/* ------------------------ВВЕРЖНЕЕ-МЕНЮ------------------------ */
+header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    transition: 0.2s ease;
+    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
+    /* border-bottom: 1px solid var(--color-black); */
+}
+
+header .navbar__top {
+    display: flex;
+    max-width: 1300px;
+    margin: 0 auto;
+    justify-content: space-between;
+    font-size: var(--font-size-1);
+    align-items: center;
+    padding: 30px 30px;
+    background-color: var(--color-bg);
+}
+
+.navbar__top-ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    font-size: var(--font-size-1);
+    font-weight: var(--font-medium);
+    position: relative;
+}
+
+.navbar__top-a {
+    color: var(--color-black);
+    cursor: pointer;
+    transition: 0.2s ease;
+    padding: 10px 20px;
+    border-radius: 50px;
+}
+
+.navbar__top-a:hover {
+    color: var(--color-white);
+    background-color: var(--color-blue);
+}
+
+.navbar__logo {
+    width: 200px;
+    transition: 0.3s ease;
+}
+
+.navbar__logo:active {
+    transform: scale(0.9, 0.9);
+}
+
+.navbar__icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.navbar__icon:active {
+    transform: scale(0.8, 0.8);
+}
+
+.burger {
+    display: none;
+}
+
+.navbar__icon-burger {
+    display: none;
+}
+
+.li-nav {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* ------------------------ПОИСКОВИК------------------------ */
+.input-box {
+    display: flex;
+    position: relative;
+    height: 40px;
+    width: 100%;
+    background: #fff;
+    border-radius: 50px;
+    /* max-width: 500px; */
+}
+
+.search-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+.search-button:active {
+    transform: translateY(-50%) scale(0.8);
+}
+
+.input-box input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    font-size: var(--font-size-1);
+    font-weight: var(--font-regular);
+    border: none;
+    padding: 0 20px 0 20px;
+    background-color: transparent;
+}
+
+.input-box .search-button {
+    width: 20px;
+    height: 20px;
+    right: 20px;
+    font-size: var(--font-size-1);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* НИЖНЕЕ-МЕНЮ */
+.navbar__bottom {
+    display: flex;
+    font-size: var(--font-size-1);
+    font-weight: var(--font-medium);
+    position: fixed;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.navbar__bottom-ul {
+    display: flex;
+    margin: 0 auto;
+    background-color: var(--color-white);
+    gap: 40px;
+    align-items: center;
+    padding: 12px 40px;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 2px 20px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* ------------------------НИЖНЕЕ-МЕНЮ начало------------------------*/
+.navbar__bottom-a {
+    color: var(--color-black);
+    font-weight: var(--font-regular);
+    cursor: pointer;
+    transition: 0.2s ease;
+    display: block;
+    /* padding: 6px 16px; */
+}
+
+.navbar__bottom-a:hover {
+    color: var(--color-blue);
+    cursor: pointer;
+    background-color: var(--color-white);
+}
+
+.navbar__dropup {
+    position: relative;
+}
+
+/* 1-КНОПКА */
+#navbar__dropup-content-1 {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    background-color: var(--color-white);
+    grid-template-columns: 250px 250px 250px;
+    grid-gap: 30px;
+    text-align: start;
+    left: -40px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    padding-top: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 50px;
+    line-height: 25px;
+    z-index: -1;
+}
+
+#navbar__dropup-content-2,
+#navbar__dropup-content-3 {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    background-color: var(--color-white);
+    grid-template-columns: 200px;
+    grid-gap: 30px;
+    text-align: start;
+    left: -40px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    padding-top: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 50px;
+    line-height: 25px;
+    z-index: -1;
+}
+
+#navbar__dropup-content-4 {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    background-color: var(--color-white);
+    grid-template-columns: 120px;
+    grid-gap: 30px;
+    text-align: start;
+    left: -40px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    padding-top: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 50px;
+    line-height: 25px;
+    z-index: -1;
+}
+
+#navbar__dropbtn-1,
+#navbar__dropbtn-2,
+#navbar__dropbtn-3,
+#navbar__dropbtn-4 {
+    background-color: transparent;
+    color: var(--color-black);
+    font-weight: var(--font-medium);
+    font-size: var(--font-size-1);
+    border: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+    text-align: center;
+}
+
+#navbar__dropbtn-1:hover,
+#navbar__dropbtn-2:hover,
+#navbar__dropbtn-3:hover,
+#navbar__dropbtn-4:hover {
+    color: var(--color-blue);
+}
+
+.navbar__bottom-order {
+    background: var(--color-orange);
+    color: var(--color-black);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    padding: 20px 35px;
+}
+
+.navbar__bottom-order:active {
+    transform: scale(0.9, 0.9);
+}
+
+.navbar__bottom-order-a {
+    color: var(--color-black);
+    text-transform: uppercase;
+    font-weight: var(--font-medium);
+}
+/* ------------------------НИЖНЕЕ-МЕНЮ конец------------------------*/
+
+/* ------------------------ГЛАВНАЯ------------------------ */
+#home {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    gap: 140px;
+    padding: 0 30px;
+}
+
+.home__photos {
+    display: flex;
+    position: relative;
+    width: 430px;
+    height: 500px;
+}
+
+/* вытяжка */
+.home__photos-hood img {
+    width: 190px;
+    position: absolute;
+    top: 10%;
+    left: 0;
+    animation-name: hood;
+    animation-duration: 1s;
+}
+
+@keyframes hood {
+    0% {
+        top: -5%;
+        opacity: 0;
+    }
+    100% {
+        top: 10%;
+        opacity: 1;
+    }
+}
+
+/* газ */
+.home__photos-gas_stove img {
+    width: 190px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    animation-name: gas_stove;
+    animation-duration: 1s;
+}
+
+@keyframes gas_stove {
+    0% {
+        left: -10%;
+        opacity: 0;
+    }
+    100% {
+        left: 0;
+        opacity: 1;
+    }
+}
+
+/* холодильник */
+.home__photos-fridge img {
+    width: 180px;
+    position: absolute;
+    right: 15%;
+    bottom: 0;
+    animation-name: fridge;
+    animation-duration: 1s;
+}
+
+@keyframes fridge {
+    0% {
+        right: -10%;
+        opacity: 0;
+    }
+    100% {
+        right: 15%;
+        opacity: 1;
+    }
+}
+
+/* пылесос */
+.home__photos-vacuum_cleaner img {
+    width: 100px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    animation-name: vacuum_cleaner;
+    animation-duration: 1s;
+}
+
+@keyframes vacuum_cleaner {
+    0% {
+        right: -10%;
+        opacity: 0;
+    }
+    100% {
+        right: 0;
+        opacity: 1;
+    }
+}
+
+.home__title {
+    max-width: 600px;
+}
+
+.home__title-one {
+    font-size: var(--font-size-3);
+    font-weight: var(--font-semibold);
+    padding-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.home__title-two {
+    font-size: 26px;
+    font-weight: var(--font-regular);
+    padding-bottom: 30px;
+    line-height: 44px;
+}
+
+.home__button {
+    padding: 18px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 1px solid var(--color-black);
+    background-color: transparent;
+    text-transform: uppercase;
+    font-weight: var(--font-medium);
+    transition: 0.2s ease;
+}
+
+.home__button:hover {
+    background-color: var(--color-orange);
+    border: 1px solid var(--color-orange);
+}
+
+.home__button:active {
+    transform: scale(0.9, 0.9);
+}
+
+/* ------------------------КЛИЕНТЫ------------------------ */
+.responsive {
+    max-width: 100%;
+    height: auto;
+}
+
+.clients__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 0;
+    margin-bottom: 100px;
+}
+
+.items {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 60px;
+    /* border: 1px solid var(--color-black); */
+}
+
+.item_1 {
+    border: var(--border);
+    border-top-left-radius: 50px;
+}
+
+.item_2 {
+    border-top: var(--border);
+    border-bottom: var(--border);
+}
+
+.item_3 {
+    border-top: var(--border);
+    border-bottom: var(--border);
+    border-left: var(--border);
+}
+
+.item_4 {
+    border: var(--border);
+    border-top-right-radius: 50px;
+}
+
+.item_5 {
+    border-left: var(--border);
+    border-right: var(--border);
+}
+
+.item_6 {
+    border-right: var(--border);
+    border-bottom: var(--border);
+}
+
+.item_7 {
+    border-right: var(--border);
+    border-bottom: var(--border);
+}
+
+.item_8 {
+    border-right: var(--border);
+}
+
+.item_9 {
+    border: var(--border);
+    border-bottom-left-radius: 50px;
+}
+
+.item_10 {
+    border-bottom: var(--border);
+    border-right: var(--border);
+}
+
+.item_11 {
+    border-bottom: var(--border);
+}
+
+.item_12 {
+    border: var(--border);
+    border-bottom-right-radius: 50px;
+}
+
+/* ------------------------ДОСТАВКА------------------------ */
+.delivery__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 60px;
+    background-color: var(--color-white);
+    padding: 80px;
+    border-radius: 50px;
+    margin-bottom: 100px;
+}
+
+.delivery__card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.delivery__card-img {
+    width: 100%;
+    height: auto;
+}
+
+.delivery__card-title {
+    border: 1px solid var(--color-black);
+    border-radius: 50px;
+    width: fit-content;
+    padding: 20px 35px;
+    font-size: var(--font-size-1);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+
+.delivery__card-text {
+    font-size: var(--font-size-1);
+    line-height: var(--line-height);
+}
+
+/* КОНТАКТЫ */
+.contacts__content {
+    display: block;
+    margin-bottom: 100px;
+    font-size: var(--font-size-1);
+    font-weight: var(--font-regular);
+    line-height: var(--line-height);
+}
+
+/* FAQ */
+.faq__content {
+    margin-bottom: 100px;
+    line-height: var(--line-height);
+}
+
+.accordion-container {
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.accordion-item {
+    /* background-color: var(--color-white); */
+    border: 1px solid var(--color-black);
+    border-radius: 30px;
+}
+
+.accordion-item:not(:last-child) {
+    margin-bottom: 30px;
+}
+
+.accordion-header {
+    background-color: transparent;
+    color: var(--color-black);
+    padding: 20px 30px;
+    font-size: var(--font-size-1);
+    font-weight: var(--font-medium);
+    /* text-transform: uppercase; */
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+    position: relative;
+    line-height: var(--line-height);
+}
+
+.accordion-content {
+    overflow: hidden;
+    padding: 0 30px;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+    font-size: var(--font-size-1);
+    font-weight: var(--font-regular);
+}
+
+.accordion-content p {
+    margin: 15px 0;
+    line-height: var(--line-height);
+}
+
+.icon {
+    transition: transform 0.3s ease;
+    font-size: 50px;
+    font-weight: 200;
+}
+
+.active .icon {
+    transform: rotate(45deg);
+}
+
+/* ------------------------ПОДВАЛ (footer)------------------------ */
+footer {
+    width: 100%;
+    border-top: 1px solid var(--color-black);
+}
+
+#footer {
+    color: var(--color-black);
+    padding-top: 40px;
+    font-size: var(--font-size-1);
+    font-weight: var(--font-regular);
+    line-height: var(--line-height);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a:hover {
+    color: var(--color-blue);
+    transition: 0.2s ease;
+}
+
+.footer-section ul li a {
+    color: var(--color-black);
+    text-decoration: none;
+}
+
+.footer-copyright {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--color-black);
+    padding: 30px 0;
+}
+
+.footer-creator a {
+    color: var(--color-black);
+    transition: 0.2s ease;
+}
+
+.footer-creator a:hover {
+    color: var(--color-blue);
+}
+
+.contacts__button {
+    padding: 20px 35px;
+    border-radius: 50px;
+    border: 0;
+    cursor: pointer;
+    background-color: var(--color-orange);
+    font-size: var(--font-size-1);
+    font-weight: var(--font-medium);
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    transition: 0.2s ease;
+    margin-top: 20px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.contacts__button:active {
+    transform: scale(0.9, 0.9);
+}
+
+.footer-section-social {
+    display: flex;
+    gap: 25px;
+    /* justify-content: center; */
+}
+
+.footer-section-position {
+    fill: var(--color-black);
+    align-items: center;
+    display: flex;
+    transition: 0.2s ease;
+}
+
+.footer-section-position:hover {
+    fill: var(--color-blue);
+}
+
+.footer-section-position p:hover {
+    fill: var(--color-blue);
+}
+
+.footer-section-position-nofill {
+    fill: var(--color-black);
+    display: flex;
+    align-items: center;
+}
+
+.footer-section-icon {
+    width: 40px;
+    height: 40px;
+    transition: fill 0.2s ease;
+}
+
+.footer-section-icon:hover {
+    fill: var(--color-blue);
+}
+
+.footer-section-icon-small {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+}
+
+.footer-date {
+    line-height: 22px;
+}
+
+/* ------------------------МОБИЛЬНОЕ МЕНЮ------------------------ */
+.mobile-contacts {
+    padding-top: 15px;
+}
+
+.mobile-contacts a:hover {
+    color: var(--color-blue);
+    fill: var(--color-blue);
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    padding: 30px;
+    transition: right 0.3s ease;
+    z-index: 1000;
+    padding-top: 30px;
+    font-size: var(--font-size-1);
+    font-weight: var(--font-regular);
+    /* max-width: 300px; */
+    line-height: 40px;
+}
+
+.menu.active {
+    right: 0;
+}
+
+.menu ul li a {
+    color: var(--color-black);
+    transition: 0.2s ease;
+}
+
+.menu ul li a:hover {
+    color: var(--color-blue);
+}
+
+.menu ul li .input-box {
+    border: 1px solid #ccc;
+    margin: 15px 0;
+}
+
+.close-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 50px;
+    font-weight: 200;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.close-btn:active {
+    transform: scale(0.9, 0.9);
+}
+
+.menu ul {
+    list-style: none;
+}
+
+.submenu {
+    line-height: 40px;
+}
+
+.submenu ul li a {
+    left: 20px;
+}
+
+.submenu ul li a:hover {
+    color: var(--color-blue);
+}
+
+.submenu a {
+    left: 20px;
+}
+
+.submenu ul {
+    display: none;
+    padding-left: 25px;
+}
+
+.submenu.active ul {
+    display: block;
+}
+
+/* --------------------------------------------------- */
+/* ------------------------404------------------------ */
+/* --------------------------------------------------- */
+
+.page-404 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 0 30px;
+}
+
+.page-404 img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.page-404__text {
+    max-width: 700px;
+    text-align: center;
+    line-height: 25px;
+    font-size: var(--font-size-1);
+    font-weight: var(--font-regular);
+}
+
+/* ------------------------------------------------------- */
+/* ------------------------КАТАЛОГ------------------------ */
+/* ------------------------------------------------------- */
+.catalog {
+    padding: 140px 0;
+    display: flex;
+    gap: 20px;
+    line-height: var(--line-height);
+}
+
+.left-panel {
+    display: block;
+    min-width: 300px;
+    height: 100%;
+    align-items: start;
+    border-radius: 50px;
+    padding: 50px;
+    background-color: var(--color-white);
+    font-size: var(--font-size-1);
+    font-weight: var(--font-regular);
+}
+
+.right-panel {
+    display: block;
+    max-width: 1000px;
+    height: 100%;
+}
+
+.catalog__card {
+    display: flex;
+    padding: 50px;
+    background-color: var(--color-white);
+    border-radius: 50px;
+}
+
+.catalog__card:not(:last-child) {
+    margin-bottom: 20px;
+}

@@ -22,7 +22,7 @@
                             <h1>Купоны</h1>
                         </div>
                         <div class="col-md-5">
-                            <a href="{{ route('coupons.create') }}" class="btn add">Добавить</a>
+                            <a href="{{ route('coupons.create') }}" class="btn add"><i class="fa-regular fa-plus"></i> Добавить</a>
                         </div>
                     </div>
                     <table class="table">
@@ -44,12 +44,12 @@
                                     <form action="{{ route('coupons.destroy', $coupon) }}" method="post">
                                         <ul>
                                             <li><a class="btn view" href="{{ route('coupons.show', $coupon)
-                                            }}">Открыть</a></li>
+                                            }}"><i class="fa-regular fa-eye"></i></a></li>
                                             <li><a class="btn edit" href="{{ route('coupons.edit', $coupon)
-                                            }}">Редактировать</a></li>
+                                            }}"><i class="fa-regular fa-pen-to-square"></i></a></li>
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn delete">Удалить</button>
+                                            <button class="btn delete"><i class="fa-regular fa-trash"></i></button>
                                         </ul>
                                     </form>
                                 </td>
