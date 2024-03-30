@@ -24,7 +24,8 @@ class HomeRequest extends FormRequest
         $rules = [
             'title' => 'required|min:3|max:255',
             'descr' => 'required|min:3',
-            'contacts' => 'required|min:5'
+            'contacts' => 'required|min:5',
+            //'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:3048',
         ];
         return $rules;
     }
@@ -34,6 +35,9 @@ class HomeRequest extends FormRequest
         return[
             'required'=>'Поле :attribute обязательно для ввода',
             'min' => 'Поле :attribute должно иметь минимум :min символов',
+            'image' => 'Загрузите изображение',
+            'mimes' => 'Изображение должно быть формата jpeg,png,jpg,gif,svg,webp',
+            'max' => 'Размер изображения не должно превышать 2Мб',
         ];
     }
 }

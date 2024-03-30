@@ -124,7 +124,7 @@ body{
 .dashboard-item h5{
     font-size: 18px;
 }
-.dashboard .home, .dashboard .faq{
+.dashboard .home, .dashboard .clients, .dashboard .deliveries, .dashboard .faq{
     margin-top: 40px;
     background-color: #fff;
     border-radius: 20px;

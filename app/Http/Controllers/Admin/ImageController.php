@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SkuRequest;
 use App\Models\Image;
 use App\Models\Product;
-use App\Models\Sku;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller

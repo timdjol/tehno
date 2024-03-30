@@ -63,14 +63,82 @@
                                     </div>
                                 @endforeach
                             </div>
+                            <div class="clients">
+                                <h2>Клиенты</h2>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Изображение</th>
+                                            <th>Действия</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach($clients as $client)
+                                        <tr>
+                                            <td><img src="{{ Storage::url($client->image) }}" alt="" width="80"></td>
+                                            <td>
+                                                <form action="{{ route('clients.destroy', $client) }}" method="post">
+                                                    <ul>
+                                                        <li><a class="btn edit" href="{{ route('clients.edit', $client)
+                                            }}"><i class="fa-regular fa-pen-to-square"></i></a></li>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn delete"><i class="fa-regular fa-trash"></i>
+                                                        </button>
+                                                    </ul>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                                <div class="btn-wrap">
+                                    <a href="{{ route('clients.create') }}" class="more"><i
+                                                class="fa-regular fa-plus"></i> Добавить изображение</a>
+                                </div>
+                            </div>
+                            <div class="deliveries">
+                                <h2>Доставка</h2>
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Изображение</th>
+                                        <th>Описание</th>
+                                        <th>Действия</th>
+                                    </tr>
+                                    </thead>
+                                    @foreach($deliveries as $delivery)
+                                        <tr>
+                                            <td><img src="{{ Storage::url($delivery->image) }}" alt="" width="80"></td>
+                                            <td>{{ $delivery->title }}</td>
+                                            <td>
+                                                <form action="{{ route('deliveries.destroy', $delivery) }}"
+                                                      method="post">
+                                                    <ul>
+                                                        <li><a class="btn edit" href="{{ route('deliveries.edit',
+                                                        $delivery)
+                                            }}"><i class="fa-regular fa-pen-to-square"></i></a></li>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn delete"><i class="fa-regular fa-trash"></i>
+                                                        </button>
+                                                    </ul>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                                <div class="btn-wrap">
+                                    <a href="{{ route('deliveries.create') }}" class="more"><i
+                                                class="fa-regular fa-plus"></i> Добавить</a>
+                                </div>
+                            </div>
                             <div class="faq">
                                 <h2>FAQ</h2>
                                 <table class="table">
                                     <thead>
-                                    <tr>
-                                        <th>Вопрос</th>
-                                        <th>Ответ</th>
-                                    </tr>
+                                        <tr>
+                                            <th>Вопрос</th>
+                                            <th>Действия</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($faqs as $faq)
@@ -93,7 +161,7 @@
                                     </tbody>
                                 </table>
                                 <div class="btn-wrap">
-                                    <a class="btn add" href="{{ route('faqs.create') }}"><i
+                                    <a class="more" href="{{ route('faqs.create') }}"><i
                                                 class="fa-regular fa-plus"></i>
                                         Добавить вопрос</a>
                                 </div>

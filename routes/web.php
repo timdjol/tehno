@@ -44,6 +44,9 @@ Route::middleware('set_locale')->group(function(){
                 //Route::get('/dashboard', [App\Http\Controllers\Admin\OrderController::class, 'dashboard'])->name
                 //('dashboard');
                 Route::resource("homes", "App\Http\Controllers\Admin\HomeController");
+                Route::resource("clients", "App\Http\Controllers\Admin\ClientController");
+                Route::resource("deliveries", "App\Http\Controllers\Admin\DeliveryController");
+                Route::resource("faqs", "App\Http\Controllers\Admin\FaqController");
                 Route::resource("orders", "App\Http\Controllers\Admin\OrderController");
                 Route::resource('categories', 'App\Http\Controllers\Admin\CategoryController');
                 Route::resource('products', 'App\Http\Controllers\Admin\ProductController');
@@ -52,7 +55,6 @@ Route::middleware('set_locale')->group(function(){
                 Route::resource("properties", "App\Http\Controllers\Admin\PropertyController");
                 Route::resource("coupons", "App\Http\Controllers\Admin\CouponController");
                 Route::resource("properties/{property}/property-options", "App\Http\Controllers\Admin\PropertyOptionController");
-                Route::resource("faqs", "App\Http\Controllers\Admin\FaqController");
 
             });
         });

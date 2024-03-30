@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HomeRequest;
 use App\Models\Category;
+use App\Models\Client;
 use App\Models\Coupon;
+use App\Models\Delivery;
 use App\Models\Faq;
 use App\Models\Home;
 use App\Models\Order;
 use App\Models\Product;
+use http\Client\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -25,9 +28,11 @@ class HomeController extends Controller
         $order = Order::get();
         $coupon = Coupon::get();
         $homes = Home::get();
+        $clients = Client::get();
+        $deliveries = Delivery::get();
         $faqs = Faq::get();
         return view('auth.homes.index',
-            compact('user', 'categories', 'product', 'order', 'coupon', 'homes', 'faqs'));
+            compact('user', 'categories', 'product', 'order', 'coupon', 'homes', 'clients', 'faqs', 'deliveries'));
     }
 
 
