@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="page admin">
+    <div class="page admin contacts">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">

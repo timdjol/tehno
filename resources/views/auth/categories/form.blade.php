@@ -38,32 +38,46 @@
                             <input type="text" name="title" value="{{ old('title', isset($category) ? $category->title :
                              null) }}">
                         </div>
-                        @error('description')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        <div class="form-group">
-                            <label for="">Описание</label>
-                            <textarea name="description" class="editor" rows="3">{{ old('description', isset
-                            ($category) ?
-                            $category->description : null) }}</textarea>
+                        <div class="form-group" id="check">
+                            @foreach([
+                          'parent' => 'Родительская категория',
+                        ] as $field => $title)
+                                <div class="form-group form-label">
+                                    <input type="checkbox" name="{{ $field }}" id="{{ $field }}"
+                                           @if (isset($product) && $product->$field === 1)
+                                               checked="checked"
+                                            @endif>
+                                    <label for="{{ $field }}">{{ $title }}</label>
+                                </div>
+                            @endforeach
                         </div>
-                        <script src="https://cdn.tiny.cloud/1/yxonqgmruy7kchzsv4uizqanbapq2uta96cs0p4y91ov9iod/tinymce/6/tinymce.min.js"
-                                referrerpolicy="origin"></script>
-                        <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
-                        <script>
-                            ClassicEditor
-                                .create(document.querySelector('.editor'))
-                                .catch(error => {
-                                    console.error(error);
-                                });
-                        </script>
+                            @isset($parents)
+                            <div class="form-group" id="form">
+                                <label for="parent_id">Выбрать из родительской</label>
+                                <select name="parent_id" id="parent_id">
+                                    <option value="0">Выбрать</option>
+                                    @foreach($parents as $parent)
+                                        <option value="{{ $parent->id }}">{{ $parent->title }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @endisset
                         @csrf
                         <button class="more">Отправить</button>
                         <a href="{{url()->previous()}}" class="btn delete cancel">Отмена</a>
                     </form>
+                        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+                        <script>
+                            $('#check label').click(function(){
+                                $('#form').toggle();
+                            });
+                        </script>
                 </div>
             </div>
         </div>
     </div>
 
 @endsection
+
+

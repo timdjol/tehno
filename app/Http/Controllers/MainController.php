@@ -57,12 +57,6 @@ class MainController extends Controller
         }
         $skus = $skusQuery->paginate(20)->withPath("?".$request->getQueryString());
 
-//        $skus = Sku::paginate(20);
-            //->distinct()
-            //->unique('product_id')
-            //->get();
-
-        //$categories = Category::get();
         $product = Product::get();
 
 

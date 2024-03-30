@@ -31,7 +31,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::get();
+        //$categories = Category::get();
+        $categories = Category::where('parent_id', 0)->orderby('name', 'asc')->get();
         $brands = Brand::get();
         $properties = Property::get();
         return view('auth.products.form', compact('categories', 'properties', 'brands'));
@@ -87,11 +88,10 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $categories = Category::get();
+        $categories = Category::where('parent_id', 0)->orderby('title', 'asc')->get();
         $brands = Brand::get();
         $properties = Property::get();
         $images = Image::where('product_id', $product->id)->get();
-        session()->flash('success', 'Продукция ' . $product->title . ' добавлена');
         return view('auth.products.form', compact('product', 'categories', 'properties', 'images', 'brands'));
     }
 
@@ -114,29 +114,8 @@ class ProductController extends Controller
             $params['image'] = $path;
         }
 
-        //images
-        //$product->update($params);
-        unset($params['images']);
-        $images = $request->file('images');
 
-
-        if ($request->hasFile('images')) :
-            if($images != null) {
-                Storage::delete($images);
-                DB::table('images')->where('product_id', $product->id)->delete();
-            }
-            foreach ($images as $image):
-                $image = $image->store('products');
-                //$arr[] = $image;
-
-                DB::table('images')
-                    ->where('product_id', $product->id)
-                    ->updateOrInsert(['product_id' => $product->id, 'image' => $image]);
-            endforeach;
-        endif;
-
-
-        $product->properties()->sync($request->property_id);
+        //$product->properties()->sync($request->property_id);
         $product->update($params);
         session()->flash('success', 'Продукция ' . $product->title . ' обновлена');
         return redirect()->route('products.index');

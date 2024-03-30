@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations;
 
 class Order extends Model
 {
-    protected $fillable = ['user_id', 'currency_id', 'sum', 'coupon_id', 'name', 'phone', 'email', 'label'];
+    protected $fillable = ['user_id', 'sum', 'coupon_id', 'name', 'phone', 'email', 'label'];
 
     public function skus()
     {
@@ -32,24 +32,26 @@ class Order extends Model
         foreach ($this->skus()->withTrashed()->get() as $sku) {
             $sum += $sku->getPriceForCount();
         }
+        dd($sum);
         return $sum;
     }
 
     public function getFullSum($withCoupon = true)
     {
-        /* подсчет суммы в валюте заказа */
         $sum = 0;
         foreach ($this->skus as $sku) {
-            $sum += $sku->getPriceInCurrency($this->currency) * $sku->countInOrder;
+            $sum += $sku->getPriceInCurrency() * $sku->countInOrder;
         }
 
         if ($withCoupon && $this->hasCoupon()) {
-            $sum = $this->coupon->applyCost($sum, $this->currency);
+            $sum = $this->coupon->applyCost($sum);
         }
 
+        //$sum = $this->coupon->applyCost($sum);
+        //dd($sum);
+
         /* сумма в валюте сессии сайта */
-        $sum = round(CurrencyConversion::convert($sum, $this->currency->code,
-            CurrencyConversion::getCurrentCurrencyFromSession()->code), 0);
+        $sum = round($sum, 0);
         return $sum;
 
     }

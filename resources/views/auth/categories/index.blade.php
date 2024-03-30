@@ -17,20 +17,24 @@
                     @if(session()->has('warning'))
                         <p class="alert alert-warning">{{ session()->get('warning') }}</p>
                     @endif
-                    <div class="row">
+                    <div class="row align-items-center">
                         <div class="col-md-7">
                             <h1>Категории</h1>
                         </div>
                         <div class="col-md-5">
-                            <a class="btn add" href="{{ route('categories.create') }}"><i class="fa-regular
+                            <div class="btn-wrap">
+                                <a class="btn add" href="{{ route('categories.create') }}"><i class="fa-regular
                             fa-plus"></i> Добавить</a>
+                            </div>
                         </div>
                     </div>
+                        <p>Отображено: {{ $allcat->count() }} категорий</p>
                     <table class="table">
                         <thead>
                         <tr>
                             <th>#</th>
                             <th>Название</th>
+                            <th>Родитель</th>
                             <th>Действия</th>
                         </tr>
                         </thead>
@@ -39,6 +43,14 @@
                             <tr>
                                 <td>{{ $category->id }}</td>
                                 <td>{{ $category->title }}</td>
+                                <td>
+                                    @if($category->parent_id)
+                                        @php $parent = \App\Models\Category::where('id', $category->parent_id)
+                                        ->firstOrFail()
+                                        @endphp
+                                        {{ $parent->title }}
+                                    @endif
+                                </td>
                                 <td>
                                     <form action="{{ route('categories.destroy', $category) }}" method="post">
                                         <ul>
@@ -54,7 +66,6 @@
                         @endforeach
                         </tbody>
                     </table>
-                    {{ $categories->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>

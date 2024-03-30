@@ -45,6 +45,12 @@
                         </div>
                         <div class="col-md-4">
                             <div class="dashboard-item">
+                                <div class="num">{{ $brands->count() }}</div>
+                                <h5>Количество <br> брендов</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="dashboard-item">
                                 <div class="num">{{ $coupon->count() }}</div>
                                 <h5>Количество <br> купонов</h5>
                             </div>

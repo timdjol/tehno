@@ -44,8 +44,7 @@
                                 </td>
                                 <td>{{ $sku->pivot->count }}</td>
                                 <td>{{ $sku->pivot->price }} сом</td>
-                                <td>{{ $sku->pivot->price * $sku->pivot->count }} {{
-                                $order->currency->symbol }}</td>
+                                <td>{{ $sku->pivot->price * $sku->pivot->count }} сом</td>
                             </tr>
                         @endforeach
                         <tr>

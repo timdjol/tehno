@@ -30,5 +30,9 @@ class Sku extends Model
         return $this->price;
     }
 
+    public function getPriceInCurrency() {
+        return round($this->price, 0);
+    }
+
 
 }

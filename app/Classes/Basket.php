@@ -6,7 +6,6 @@ use App\Mail\OrderCreated;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Sku;
-use App\Services\CurrencyConversion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -22,7 +21,6 @@ class Basket
             if(Auth::check()){
                 $data['user_id'] = Auth::id();
             }
-            $data['currency_id'] = CurrencyConversion::getCurrentCurrencyFromSession()->id;
             $this->order = new Order($data);
             session(['order' => $this->order]);
         } else {

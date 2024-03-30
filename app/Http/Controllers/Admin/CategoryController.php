@@ -15,8 +15,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(10);
-        return view('auth.categories.index', compact('categories'));
+        $allcat = Category::all();
+        //$categories = Category::where('parent_id', 0)->with('subcategory')->get();
+        $categories = Category::all();
+        return view('auth.categories.index', compact('categories', 'allcat'));
     }
 
     /**
@@ -24,7 +26,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('auth.categories.form');
+        $parents = Category::where('parent', 'on')->get();
+        return view('auth.categories.form', compact('parents'));
     }
 
     /**
@@ -33,11 +36,15 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         $request['code'] = Str::slug($request->title);
+        foreach (['parent'] as $fieldName){
+            if(!isset($params[$fieldName])){
+                $params[$fieldName] = 0;
+            }
+        }
         $params = $request->all();
+
         Category::create($params);
-
         session()->flash('success', 'Категория добавлена ' . $request->title);
-
         return redirect()->route('categories.index');
     }
 
@@ -64,6 +71,13 @@ class CategoryController extends Controller
     {
         $request['code'] = Str::slug($request->title);
         $params = $request->all();
+
+        foreach (['parent'] as $fieldName){
+            if(!isset($params[$fieldName])){
+                $params[$fieldName] = 0;
+            }
+        }
+
         $category->update($params);
 
         session()->flash('success', 'Категория ' . $request->title . ' обновлена');

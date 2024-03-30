@@ -27,7 +27,7 @@
                 @if($search->map->skus->flatten()->isNotEmpty())
                     @foreach($search->map->skus->flatten() as $sku)
                         <div class="col-lg-3 col-md-4 col-6">
-                            @include('layouts.cart', compact('sku'))
+                            @include('layouts.card', compact('sku'))
                         </div>
                     @endforeach
                 @else

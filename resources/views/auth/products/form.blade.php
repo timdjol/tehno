@@ -39,7 +39,7 @@
                         @include('auth.layouts.error', ['fieldname' => 'category_id'])
                         <div class="form-group">
                             <label for="">Категория</label>
-                            <select name="category_id">
+                            <select name="category_id" multiple style="height: 200px">
                                 <option>Выбрать</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}"
@@ -83,11 +83,6 @@
                                 .catch(error => {
                                     console.error(error);
                                 });
-                            ClassicEditor
-                                .create(document.querySelector('#editor1'))
-                                .catch(error => {
-                                    console.error(error);
-                                });
                         </script>
 
                         @include('auth.layouts.error', ['fieldname' => 'property_id[]'])
@@ -105,8 +100,27 @@
                                 @endforeach
                             </select>
                         </div>
-
-
+                        <div class="form-group">
+                            <label for="">Тип</label>
+                            <input type="text" name="type" value="{{ old('type', isset($product) ?
+                                $product->type : null) }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Количество камер</label>
+                            <input type="text" name="camera" value="{{ old('camera', isset($product) ?
+                                $product->camera : null) }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Высота</label>
+                            <input type="text" name="height" value="{{ old('height', isset($product) ?
+                                $product->height : null) }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Ширина</label>
+                            <input type="text" name="weight" value="{{ old('weight', isset($product) ?
+                                $product->weight : null) }}">
+                        </div>
+                        @include('auth.layouts.error', ['fieldname' => 'image'])
                         <div class="form-group">
                             <label for="">Изображение</label>
                             @isset($product)
@@ -114,8 +128,6 @@
                             @endisset
                             <input type="file" name="image">
                         </div>
-
-
                         @csrf
                         <button class="more">Отправить</button>
                         <a href="{{ url()->previous() }}" class="btn delete cancel">Отмена</a>

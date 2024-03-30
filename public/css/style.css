@@ -215,7 +215,8 @@ form button.more{
     padding: 8px 45px;
     letter-spacing: 0;
     height: auto;
-    border-radius: 5px;
+    border-radius: 20px;
+    outline: none;
 }
 .single .price{
     margin: 10px 0;

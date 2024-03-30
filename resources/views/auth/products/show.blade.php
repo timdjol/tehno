@@ -31,6 +31,34 @@
                                <td>{{ $product->category->title }}</td>
                            </tr>
                            <tr>
+                               <td>Бренд</td>
+                               <td>{{ $product->brand->title }}</td>
+                           </tr>
+                           @if($product->type)
+                               <tr>
+                                   <td>Тип</td>
+                                   <td>{{ $product->type }}</td>
+                               </tr>
+                           @endif
+                           @if($product->camera)
+                               <tr>
+                                   <td>Количество камер</td>
+                                   <td>{{ $product->camera }}</td>
+                               </tr>
+                           @endif
+                           @if($product->height)
+                               <tr>
+                                   <td>Высота</td>
+                                   <td>{{ $product->height }}</td>
+                               </tr>
+                           @endif
+                           @if($product->weight)
+                               <tr>
+                                   <td>Ширина</td>
+                                   <td>{{ $product->weight }}</td>
+                               </tr>
+                           @endif
+                           <tr>
                                <td>Изображение</td>
                                <td><img src="{{ Storage::url($product->image) }}"></td>
                            </tr>

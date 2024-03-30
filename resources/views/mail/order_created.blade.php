@@ -1,6 +1,6 @@
 <p>@lang('mail.dear') {{ $name }}</p>
 
-<p>@lang('mail.order_sum') {{ $fullSum }} {{ $order->currency->symbol }} @lang('mail.order_create')</p>
+<p>@lang('mail.order_sum') {{ $fullSum }} сом @lang('mail.order_create')</p>
 
 <table>
     <tbody>
@@ -8,15 +8,15 @@
         <tr>
             <td>
                 <a href="{{ route('sku', [$sku->product->category->code, $sku->product->code, $sku->id]) }}">
-                    <img src="{{ Storage::url($sku->product->image) }}" alt="{{ $sku->product->__('title') }}">
-                    {{ $sku->product->__('title') }}
+                    <img src="{{ Storage::url($sku->product->image) }}" alt="{{ $sku->product->title }}">
+                    {{ $sku->product->title }}
                 </a>
             </td>
             <td>
                 <span class="badge">{{ $sku->countInOrder }}</span>
             </td>
-            <td>{{ $sku->price }} {{ $order->currency->symbol }}</td>
-            <td>{{ $sku->getPriceForCount() }} {{ $order->currency->symbol }}</td>
+            <td>{{ $sku->price }} сом</td>
+            <td>{{ $sku->getPriceForCount() }} сом</td>
         </tr>
     @endforeach
     </tbody>

@@ -17,12 +17,14 @@
                     @if(session()->has('warning'))
                         <p class="alert alert-warning">{{ session()->get('warning') }}</p>
                     @endif
-                    <div class="row">
+                    <div class="row align-items-center">
                         <div class="col-md-7">
                             <h1>Купоны</h1>
                         </div>
                         <div class="col-md-5">
-                            <a href="{{ route('coupons.create') }}" class="btn add"><i class="fa-regular fa-plus"></i> Добавить</a>
+                            <div class="btn-wrap">
+                                <a href="{{ route('coupons.create') }}" class="btn add"><i class="fa-regular fa-plus"></i> Добавить</a>
+                            </div>
                         </div>
                     </div>
                     <table class="table">

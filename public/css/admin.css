@@ -54,13 +54,19 @@ body{
     color: #fff;
     border: none;
 }
+.admin .btn-wrap{
+    text-align: right;
+}
 .admin a.add{
     background-color: green;
-    border-radius: 5px;
+    border-radius: 20px;
 }
-.admin a.view{
+.admin table ul li a.view{
     background-color: #0641a1;
     border-radius: 5px;
+}
+.contacts table ul li a.view{
+    border-radius: 20px;
 }
 .admin a.edit{
     background-color: orange;
@@ -79,6 +85,7 @@ body{
 .admin form .cancel{
     padding: 9px 30px;
     margin-left: 10px;
+    border-radius: 20px;
 }
 .admin .input-group{
     margin-bottom: 10px;
@@ -147,4 +154,7 @@ table tr{
     border-radius: 20px;
     background-color: #fff;
     padding: 20px;
+}
+.check label{
+    display: inline-block;
 }

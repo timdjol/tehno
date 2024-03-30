@@ -1,0 +1,91 @@
+body{
+    background-color: #d4dde9 !important;
+}
+.page{
+    padding: 150px 0;
+}
+.products-item{
+    padding: 10px;
+}
+.products-item .img{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 30vh;
+}
+.products-item .price{
+    margin: 20px 0;
+    font-size: 20px;
+}
+.page table{
+    width: 100%;
+}
+.page table td{
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.page table img{
+    max-width: 80px;
+}
+.page table a{
+    color: #333;
+}
+img{
+    max-width: 100%;
+}
+.hidden{
+    display: none;
+}
+.single .price{
+    margin: 15px 0;
+    font-size: 20px;
+}
+.stock.in{
+    color: green;
+}
+.view{
+    padding-bottom: 60px;
+}
+.page input, .page textarea{
+    width: 100%;
+    display: block;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.page textarea{
+    height: auto;
+}
+
+.page .container{
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #fff;
+}
+.order label{
+    display: inline-block;
+}
+.alert{
+    font-size: 12px;
+    opacity: 1;
+}
+.basket form{
+    display: inline-block;
+}
+.basket .btns .btn-wrap{
+    text-align: right;
+}
+.single{
+    padding-bottom: 0px;
+}
+.related{
+    padding: 30px 0;
+}
+.single .descr{
+    margin-top: 40px;
+}
+.related .container, .viewblock .container{
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #fff;
+}

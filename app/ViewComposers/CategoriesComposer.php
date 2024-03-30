@@ -8,7 +8,7 @@ use Illuminate\View\View;
 class CategoriesComposer
 {
     public function compose(View $view){
-        $categories = Category::get();
+        $categories = Category::where('parent_id', 1)->get();
         $view->with('categories', $categories);
     }
 }

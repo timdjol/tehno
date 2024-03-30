@@ -23,18 +23,15 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            //'code' => 'required|min:3|max:255|unique:products,code',
             'title' => 'required|min:3|max:255',
             'description' => 'required|min:5',
             'category_id' => 'required',
+            'brand_id' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:3048'
 //            'price' => 'required|numeric|min:1',
 //            'count' => 'required|numeric|min:0'
         ];
-//        if($this->route()->named('products.update')){
-//            $rules['code'] .= ',' . $this->route()->parameter('product')->id;
-//        }
         return $rules;
     }
 
@@ -43,12 +40,10 @@ class ProductRequest extends FormRequest
         return[
             'required'=> 'Поле :attribute обязательно для ввода',
             'min' => 'Поле :attribute должно иметь минимум :min символов',
-            'code.min' => 'Поле код должно содержать не менее :min символов',
             'image' => 'Загрузите изображение',
             'images.*' => 'Загрузите изображения',
             'mimes' => 'Изображение должно быть формата jpeg,png,jpg,gif,svg,webp',
-            'max' => 'Размер изображения не должно превышать 2Мб',
-            'unique' => 'Код должен быть уникальным'
+            'max' => 'Размер изображения не должно превышать 3Мб',
         ];
     }
 }

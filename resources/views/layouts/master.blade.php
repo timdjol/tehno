@@ -25,13 +25,14 @@
     <link rel="stylesheet" href="{{route('index')}}/css/front/style.css" />
     <link rel="stylesheet" href="{{route('index')}}/css/front/normalize.css" />
     <link rel="stylesheet" href="{{route('index')}}/css/front/media.css" />
+    <link rel="stylesheet" href="{{route('index')}}/css/custom.css">
     <script defer src="{{route('index')}}/js/front/script.js"></script>
 </head>
 <body>
 <!-- ВВЕРХНЕЕ-МЕНЮ -->
 <header>
     <div class="navbar__top">
-        <a href="#">
+        <a href="{{route('index')}}">
             <img class="navbar__logo" src="{{route('index')}}/img/front/logo.svg" alt="" />
         </a>
         <ul class="navbar__top-ul">
@@ -65,11 +66,13 @@
             </li>
 
             <li>
-                <img
-                        class="navbar__icon"
-                        src="{{route('index')}}/img/front/icons/icon_profile.svg"
-                        alt="Профиль"
-                />
+                <a href="{{ route('login') }}">
+                    <img
+                            class="navbar__icon"
+                            src="{{route('index')}}/img/front/icons/icon_profile.svg"
+                            alt="Профиль"
+                    />
+                </a>
             </li>
 
             <li>
@@ -94,7 +97,7 @@
         <nav class="menu" id="menu">
             <div class="close-btn" id="close-btn">&times;</div>
             <ul>
-                <li><a href="#">Вход / Регистрация</a></li>
+                <li><a href="{{ route('login') }}">Вход / Регистрация</a></li>
 
                 <li>
                     <div class="input-box">
@@ -109,15 +112,10 @@
                 <li class="submenu">
                     <a href="#">Все категории</a>
                     <ul>
-                        <li><a href="#">Встраиваемая техника</a></li>
-                        <li><a href="#">Стиральные машины</a></li>
-                        <li><a href="#">Телевизоры</a></li>
-                        <li><a href="#">Холодильники</a></li>
-                        <li><a href="#">Морозильники</a></li>
-                        <li><a href="#">Посудомоечные машины</a></li>
-                        <li><a href="#">Кондиционеры</a></li>
-                        <li><a href="#">Пылесосы</a></li>
-                        <li><a href="#">Ноутбуки</a></li>
+                        @foreach($categories as $category)
+                            <li><a href="{{ route('category', $category->code) }}">{{ $category->title }}</a></li>
+                        @endforeach
+
                     </ul>
                 </li>
                 <li><a href="#">Спецпредложение</a></li>
@@ -173,11 +171,11 @@
                                     />
                                 </svg>
 
-                                <p>Каждый день с 9:00 - 21:00</p>
+                                <p>{{ $contacts->first()->graph }}</p>
                             </span>
 
                     <a
-                            href="#"
+                            href="tel:{{ $contacts->first()->phone }}"
                             class="footer-section-position"
                             target="_blank"
                     >
@@ -215,11 +213,11 @@
                                             c11.1-11,28.9-13.7,44.1-5.5l20.7-38c-31.2-17-70-12.3-95.2,12.8L417.7,384.7z"
                                     />
                                 </svg>
-                        <p>+996 (555) 400 700</p>
+                        <p>{{ $contacts->first()->phone }}</p>
                     </a>
 
                     <a
-                            href="#"
+                            href="tel:{{ $contacts->first()->phone2 }}"
                             class="footer-section-position"
                             target="_blank"
                     >
@@ -257,7 +255,7 @@
                                             c11.1-11,28.9-13.7,44.1-5.5l20.7-38c-31.2-17-70-12.3-95.2,12.8L417.7,384.7z"
                                     />
                                 </svg>
-                        <p>+996 (550) 405 080</p>
+                        <p>{{ $contacts->first()->phone2 }}</p>
                     </a>
                 </li>
             </ul>
@@ -283,80 +281,45 @@
                                 Встраиваемая техника</b
                             >
                         </a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Холодильники</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Духовые шкафы</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Варочные поверхности</a
-                        >
-                        <a class="navbar__bottom-a" href="#">Вытяжки</a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Микроволновые печи</a
-                        >
+                        @foreach(\App\Models\Category::where('parent_id', 1)->get() as $category)
+                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
+                        @endforeach
                     </div>
 
                     <div class="navbar__bottom-items">
                         <a class="navbar__bottom-a" href="#">
                             <b class="uppercase"> Стиральные машины</b>
                         </a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Холодильники</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Духовые шкафы</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Варочные поверхности</a
-                        >
-                        <a class="navbar__bottom-a" href="#">Вытяжки</a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Микроволновые печи</a
-                        >
+                        @foreach(\App\Models\Category::where('parent_id', 24)->get() as $category)
+                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
+                        @endforeach
                     </div>
 
                     <div class="navbar__bottom-items">
                         <a class="navbar__bottom-a" href="#">
                             <b class="uppercase"> Телевизоры</b>
                         </a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Телевизоры</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Кронштейны</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Аудио-системы</a
-                        >
+                        @foreach(\App\Models\Category::where('parent_id', 36)->get() as $category)
+                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
+                        @endforeach
                     </div>
 
                     <div class="navbar__bottom-items">
                         <a class="navbar__bottom-a" href="#">
                             <b class="uppercase"> Холодильники</b>
                         </a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Двухкамерные</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >С верхней морозильной камерой</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Многодверные холодильники</a
-                        >
+                        @foreach(\App\Models\Category::where('parent_id', 16)->get() as $category)
+                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
+                        @endforeach
                     </div>
 
                     <div class="navbar__bottom-items">
                         <a class="navbar__bottom-a" href="#">
                             <b class="uppercase"> Морозильники</b>
                         </a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Вертикальные</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Горизонтальные</a
-                        >
+                        @foreach(\App\Models\Category::where('parent_id', 28)->get() as $category)
+                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
+                        @endforeach
                     </div>
 
                     <div class="navbar__bottom-items">
@@ -365,72 +328,36 @@
                                 Посудомоечные машины</b
                             >
                         </a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Встраиваемые</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Отдельностоящие</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Настольные</a
-                        >
+                        @foreach(\App\Models\Category::where('parent_id', 40)->get() as $category)
+                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
+                        @endforeach
                     </div>
 
                     <div class="navbar__bottom-items">
                         <a class="navbar__bottom-a" href="#">
                             <b class="uppercase"> Кондиционеры</b>
                         </a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Настенные</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Инверторные</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Колонные (напольные)</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Канальные</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Кассетные</a
-                        >
+                        @foreach(\App\Models\Category::where('parent_id', 3)->get() as $category)
+                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
+                        @endforeach
                     </div>
 
                     <div class="navbar__bottom-items">
                         <a class="navbar__bottom-a" href="#">
                             <b class="uppercase"> Пылесосы</b>
                         </a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Роботы-пылесосы</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Вертикальные</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >С мешком</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >С контейнером
-                        </a>
+                        @foreach(\App\Models\Category::where('parent_id', 31)->get() as $category)
+                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
+                        @endforeach
                     </div>
 
                     <div class="navbar__bottom-items">
                         <a class="navbar__bottom-a" href="#">
                             <b class="uppercase"> Ноутбуки</b>
                         </a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Ноутбуки</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Принтеры</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Мониторы</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Аксессуары</a
-                        >
+                        @foreach(\App\Models\Category::where('parent_id', 44)->get() as $category)
+                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -502,15 +429,10 @@
                         <a class="navbar__bottom-a" href="#">
                             <b class="uppercase"> Бренды</b>
                         </a>
-                        <a class="navbar__bottom-a" href="#">Samsung</a>
-                        <a class="navbar__bottom-a" href="#">Bosch</a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Electrolux</a
-                        >
-                        <a class="navbar__bottom-a" href="#">Otex</a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Texnomir</a
-                        >
+                        @foreach($brands as $brand)
+                            <a class="navbar__bottom-a" href="#"
+                            >{{ $brand->title }}</a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -706,10 +628,9 @@
                 </div>
                 <div class="footer-section">
                     <ul>
-                        <li><a href="#">Встраиваемая техника</a></li>
-                        <li><a href="#">Бытовая техника</a></li>
-                        <li><a href="#">Мелкая техника</a></li>
-                        <li><a href="#">Бренды</a></li>
+                        @foreach($categories as $category)
+                            <li><a href="{{ route('category', $category->code) }}">{{ $category->title }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="footer-section">

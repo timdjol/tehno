@@ -3,12 +3,15 @@
 @section('title', 'Оформление заказа')
 
 @section('content')
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
     <div class="page order">
         <div class="container">
             <div class="col-lg-6 col-md-12 offset-lg-3">
                 <h1>@lang('basket.checkout')</h1>
-                <h5>@lang('basket.total_order'): {{ $order->getFullSum() }} {{
-                $currencySymbol }}</h5>
+                <h5>@lang('basket.total_order'): {{ $order->getFullSum() }} сом</h5>
                 <form action="{{ route('order-confirm') }}" method="post">
                     @error ('name')
                     <div class="alert alert-danger">{{ $message }}</div>
@@ -63,7 +66,7 @@
                         </div>
                         <div id="form2">
                             <div class="form-group">
-                                <p>{{ $contacts->first()->address }}</p>
+                                <p>г.Бишкек ул.Советская 3/4</p>
                             </div>
                         </div>
                     </div>
@@ -97,7 +100,7 @@
                     </div>
 
                     @csrf
-                    <button id="send" class="more">@lang('basket.confirm')</button>
+                    <button id="send" class="more btn btn-success">@lang('basket.confirm')</button>
                 </form>
             </div>
         </div>
@@ -109,6 +112,7 @@
     .form-group input[type="radio"] {
         width: auto;
         height: auto;
+        display: inline-block;
     }
 
     #form2, #form3 {

@@ -54,7 +54,7 @@
     </div>
 </footer>
 
-<script src="../js/scripts.min.js"></script>
+<script src="{{route('index')}}/js/scripts.min.js"></script>
 
 </body>
 </html>
