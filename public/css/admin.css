@@ -1,6 +1,12 @@
 body{
     background-color: #f8fafc;
 }
+h1, h2{
+    font-family: gilroy-bold, sans-serif;
+}
+h3, h4, h5, label{
+    font-family: gilroy-semibold, sans-serif;
+}
 .sidebar ul li{
     display: block;
     margin-bottom: 10px;

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\Product;
+use App\Models\Subcategory;
 use Illuminate\Support\Str;
 
 
@@ -15,10 +17,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $allcat = Category::all();
-        //$categories = Category::where('parent_id', 0)->with('subcategory')->get();
-        $categories = Category::all();
-        return view('auth.categories.index', compact('categories', 'allcat'));
+        $categories = Category::paginate(20);
+        $subcategories = Subcategory::all();
+        //$subcategories = Subcategory::where('category_id', 1)->get();
+        return view('auth.categories.index', compact('categories', 'subcategories'));
     }
 
     /**
@@ -26,8 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $parents = Category::where('parent', 'on')->get();
-        return view('auth.categories.form', compact('parents'));
+        return view('auth.categories.form');
     }
 
     /**
@@ -36,11 +37,6 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         $request['code'] = Str::slug($request->title);
-        foreach (['parent'] as $fieldName){
-            if(!isset($params[$fieldName])){
-                $params[$fieldName] = 0;
-            }
-        }
         $params = $request->all();
 
         Category::create($params);
@@ -71,13 +67,6 @@ class CategoryController extends Controller
     {
         $request['code'] = Str::slug($request->title);
         $params = $request->all();
-
-        foreach (['parent'] as $fieldName){
-            if(!isset($params[$fieldName])){
-                $params[$fieldName] = 0;
-            }
-        }
-
         $category->update($params);
 
         session()->flash('success', 'Категория ' . $request->title . ' обновлена');
@@ -89,7 +78,9 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        Product::where('category_id', $category->id)->update(['category_id' => 64]);
         $category->delete();
+
         session()->flash('success', 'Категория ' . $category->title . ' удалена');
         return redirect()->route('categories.index');
     }

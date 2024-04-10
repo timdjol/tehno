@@ -4,19 +4,19 @@
 
 <table>
     <tbody>
-    @foreach($order->skus as $sku)
+    @foreach($order->products as $product)
         <tr>
             <td>
-                <a href="{{ route('sku', [$sku->product->category->code, $sku->product->code, $sku->id]) }}">
-                    <img src="{{ Storage::url($sku->product->image) }}" alt="{{ $sku->product->title }}">
-                    {{ $sku->product->title }}
+                <a href="{{ route('product', [$product->category->code, $product->code, $sku->id]) }}">
+                    <img src="{{ Storage::url($product->image) }}" alt="{{ $product->title }}">
+                    {{ $product->title }}
                 </a>
             </td>
             <td>
-                <span class="badge">{{ $sku->countInOrder }}</span>
+                <span class="badge">{{ $product->countInOrder }}</span>
             </td>
-            <td>{{ $sku->price }} сом</td>
-            <td>{{ $sku->getPriceForCount() }} сом</td>
+            <td>{{ $product->price }} сом</td>
+            <td>{{ $product->getPriceForCount() }} сом</td>
         </tr>
     @endforeach
     </tbody>

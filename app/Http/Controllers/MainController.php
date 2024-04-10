@@ -4,20 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductsFilterRequest;
 use App\Http\Requests\SubscriptionRequest;
+use App\Mail\ContactMail;
+use App\Mail\FormMail;
+use App\Mail\TravelMail;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Client;
 use App\Models\Currency;
 use App\Models\Delivery;
+use App\Models\Form;
 use App\Models\Home;
 use App\Models\Image;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Faq;
 use App\Models\Sku;
 use App\Models\Slider;
+use App\Models\Subcategory;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class MainController extends Controller
 {
@@ -32,40 +40,45 @@ class MainController extends Controller
 
     public function catalog(ProductsFilterRequest $request)
     {
-        $skusQuery = Sku::with(['product', 'product.category']);
-
-//        if ($request->has('category_id')) {
-//            //dd($skusQuery->get());
-//            $skusQuery->where('category_id', $request->category_id);
-//        }
+        $productsQuery = Product::with(['category']);
 
         if ($request->filled('price_from')) {
-            $skusQuery->where('price', '>=', $request->price_from);
+            $productsQuery->where('price', '>=', $request->price_from);
         }
 
         if ($request->filled('price_to')) {
-            $skusQuery->where('price', '<=', $request->price_to);
+            $productsQuery->where('price', '<=', $request->price_to);
         }
 
-        foreach (['hit', 'new', 'recommend'] as $field) {
-            if ($request->has($field)) {
-                $skusQuery->whereHas('product', function ($query) use ($field)
-                {
-                    $query->$field();
-                });
-            }
+
+        if ($request->filled('height')) {
+            $productsQuery->where('height', $request->height);
         }
-        $skus = $skusQuery->paginate(20)->withPath("?".$request->getQueryString());
+
+        if ($request->filled('width')) {
+            $productsQuery->where('width', $request->width);
+        }
+
+//        foreach (['type', 'camera'] as $field) {
+//            if ($request->has($field)) {
+//                $skusQuery->whereHas('product', function ($query) use ($field)
+//                {
+//                    $query->$field();
+//                });
+//            }
+//        }
+        $products = $productsQuery->orderby('updated_at', 'desc')->paginate(20)->withPath("?".$request->getQueryString
+            ());
 
         $product = Product::get();
 
-
-        return view('catalog', compact('skus', 'product'));
+        return view('catalog', compact('products', 'product'));
     }
 
     public function categories()
     {
-        return view('categories');
+        $categories = Category::all();
+        return view('categories', compact('categories'));
     }
 
     public function category($code)
@@ -75,83 +88,51 @@ class MainController extends Controller
         return view('category', compact('category'));
     }
 
-    public function sku($categoryCode, $productCode, Sku $skus, Request $request, Image $image)
+    public function subcategory($code)
     {
-        if ($skus->product->code != $productCode) {
-            abort(404, 'Продукция не найдена');
-        }
-        if ($skus->product->category->code != $categoryCode) {
-            abort(404, 'Категория не найдена');
-        }
-
-        $images = Image::where('product_id', $skus->product->id)->get();
-
-        //related sku
-//        $skus_arr = DB::table('skus')
-//            ->where('product_id', $skus->product->id)
-//            //->orderBy('id', 'desc')
-//            ->pluck('id')
-//            ->toArray();
-//
-//        $prop_arr = DB::table('sku_property_option')
-//            ->whereIn('sku_id', $skus_arr)
-//            ->pluck('property_option_id')
-//            ->toArray();
-//
-//        //color
-//        $prop_opt_arr = DB::table('property_options')
-//            ->where('property_id', 1)
-//            ->whereIn('id', $prop_arr)
-//            ->orderBy('id', 'desc')
-//            ->pluck('color')
-//            ->toArray();
-//
-//        //size
-//        $prop_opt_size = DB::table('property_options')
-//            ->where('property_id', 2)
-//            ->whereIn('id', $prop_arr)
-//            ->get();
-
-        //relatedsku
-        $relatedsku = Sku::where('product_id', $skus->product->id)->get();
+        $subcategory = Subcategory::where('code', $code)->first();
+        $products = Product::all();
 
 
-        //related
-        $category = Category::where('code', $categoryCode)->first();
-
-
-        //recently
-        if (session()->exists('recently')) {
-            $arr = session('recently');
-        } else{
-            $arr = [];
-        }
-
-        if(!in_array($skus->product->id, $arr)){
-            session()->push('recently', $skus->product->id);
-        }
-
-        $distinct = array_unique($arr);
-        $reverse = array_reverse($distinct);
-        //$sort = collect($distinct)->sortKeysDesc();
-        //dd($reverse);
-
-        $recentlies = Sku::whereIn('product_id', $reverse)->take(4)->get();
-        //dd($recentlies);
-
-
-        return view('product', compact('skus', 'images', 'relatedsku', 'category', 'recentlies'));
+        return view('subcategory', compact('subcategory', 'products'));
     }
 
-
-    public function subscribe(SubscriptionRequest $request, Sku $skus)
+    public function brands()
     {
-        Subscription::create([
-            'email' => $request->email,
-            'sku_id' => $skus->id,
-        ]);
+        $brands = Brand::all();
+        return view('brands', compact('brands'));
+    }
 
-        return redirect()->back()->with('success', 'Спасибо, мы сообщим Вам о поступлении продукции');
+    public function brand($code)
+    {
+        $brand = Brand::where('code', $code)->first();
+        return view('brand', compact('brand'));
+    }
+
+    public function product($category, $productCode)
+    {
+        $product = Product::withTrashed()->byCode($productCode)->firstOrFail();
+        $images = Image::where('product_id', $product->id)->get();
+
+        //related
+
+        return view('product', compact('product', 'images'));
+    }
+
+    public function form_mail(Request $request)
+    {
+        $params = $request->all();
+        Form::create($params);
+        Mail::to('laravel@timdjol.com')->send(new FormMail($request));
+        return redirect()->route('index');
+    }
+
+    public function order_mail(Request $request)
+    {
+        $params = $request->all();
+        Order::create($params);
+        Mail::to('info@tehnosklad.kg')->send(new OrderMail($request));
+        return redirect()->route('categorytravel');
     }
 
     public function search()
@@ -159,7 +140,6 @@ class MainController extends Controller
         $title = $_GET['search'];
         $search = Product::query()
             ->where('title', 'like', '%'.$title.'%')
-            ->orWhere('title_en', 'like', '%'.$title.'%')
             ->get();
         return view('search', compact('search'));
     }

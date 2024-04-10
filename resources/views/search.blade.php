@@ -3,42 +3,23 @@
 @section('title', 'Поиск')
 
 @section('content')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <div class="pagetitle">
+
+    <div class="page products">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>@lang('main.search')</h1>
-                    <div class="breadcrumbs">
-                        <ul>
-                            <li><a href="{{ route('index') }}">@lang('main.home')</a></li>
-                            <li>/</li>
-                            <li>@lang('main.search')</li>
-                        </ul>
-                    </div>
+                    <h1>Поиск по слову "@php echo $_GET['search'] @endphp"</h1>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="products">
-        <div class="container">
-            <div class="row">
-                @if($search->map->skus->flatten()->isNotEmpty())
-                    @foreach($search->map->skus->flatten() as $sku)
-                        <div class="col-lg-3 col-md-4 col-6">
-                            @include('layouts.card', compact('sku'))
-                        </div>
-                    @endforeach
-                @else
-                    <h2>Продукции не найдены</h2>
-                @endif
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-
-                </div>
-            </div>
+            @if($search->isNotEmpty())
+                @foreach($search->sortByDesc('updated_at') as $product)
+                    @include('layouts.card', compact('product'))
+                @endforeach
+            @else
+                <div class="alert alert-danger">Продукции не найдены</div>
+            @endif
         </div>
     </div>
 

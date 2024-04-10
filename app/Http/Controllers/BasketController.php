@@ -6,8 +6,7 @@ use App\Classes\Basket;
 use App\Http\Requests\AddCouponRequest;
 use App\Http\Requests\BasketRequest;
 use App\Models\Coupon;
-use App\Models\Sku;
-use CdekSDK2\Client;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,21 +18,22 @@ class BasketController extends Controller
         return view('basket', compact('order'));
     }
 
-    public function basketAdd(Sku $skus)
+    public function basketAdd(Product $product)
     {
-        $result = (new Basket(true))->addSku($skus);
+        $result = (new Basket(true))->addProduct($product);
         if($result){
-            session()->flash('success', 'Продукция добавлена ' . $skus->product->title);
+            session()->flash('success', __('basket.added_cart') . $product->title);
         } else {
-            session()->flash('warning', 'Продукция' . $skus->product->title . ' недоступна');
+            session()->flash('warning', __('basket.item') . $product->title . __('basket.unavailable'));
         }
+
         return redirect()->route('basket');
     }
 
-    public function basketRemove(Sku $skus){
-        (new Basket())->removeSku($skus);
+    public function basketRemove(Product $product){
+        (new Basket())->removeProduct($product);
 
-        session()->flash('warning', 'Удалена продукция ' . $skus->product->title);
+        session()->flash('warning', __('basket.delete_product') . $product->title);
         return redirect()->route('basket');
     }
 
@@ -42,10 +42,9 @@ class BasketController extends Controller
         $basket = new Basket();
         $order = $basket->getOrder();
         if(!$basket->countAvailable()){
-            session()->flash('warning', 'Продукция недоступна в полном объеме');
+            session()->flash('warning', __('basket.unavailable_full'));
             return redirect()->route('basket');
         }
-
         return view('order', compact('order'));
     }
 
@@ -55,7 +54,7 @@ class BasketController extends Controller
 
         if($basket->getOrder()->hasCoupon() && !$basket->getOrder()->coupon->availableForUse()){
             $basket->clearCoupon();
-            session()->flash('warning', 'Купон недоступен');
+            session()->flash('warning', __('basket.coupon_unavailable'));
             return redirect()->route('basket');
         }
 
@@ -63,9 +62,9 @@ class BasketController extends Controller
 
         if($basket->saveOrder($request->name, $request->phone, $email, $request->type_address, $request->address,
             $request->comment, $request->type_payment)){
-            session()->flash('success', 'Заказ в процессе');
+            session()->flash('success', __('basket.processed'));
         } else {
-            session()->flash('warning', 'Заказ недоступен');
+            session()->flash('warning', __('basket.unavailable_full'));
         }
 
         return redirect()->route('index');
@@ -75,10 +74,10 @@ class BasketController extends Controller
         $coupon = Coupon::where('code', $request->coupon)->first();
         if($coupon->availableForUse()){
             (new Basket())->setCoupon($coupon);
-            session()->flash('success', 'Купон добавлен');
+            session()->flash('success', __('basket.coupon_add'));
         }
         else {
-            session()->flash('warning', 'Купон был использован');
+            session()->flash('warning', __('basket.coupon_nouse'));
         }
 
         return redirect()->route('basket');
@@ -86,7 +85,7 @@ class BasketController extends Controller
 
     public function resetBasket(Request $request){
         $request->session()->forget('order');
-        session()->flash('success', 'Корзина очищена');
+        session()->flash('success', __('basket.cleared'));
         return redirect()->route('index');
     }
 

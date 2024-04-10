@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Services\CurrencyConversion;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
@@ -11,10 +10,11 @@ class Order extends Model
 {
     protected $fillable = ['user_id', 'sum', 'coupon_id', 'name', 'phone', 'email', 'label'];
 
-    public function skus()
+    public function products()
     {
-        return $this->belongsToMany(Sku::class)->withPivot('count', 'price')->withTimestamps();
+        return $this->belongsToMany(Product::class)->withPivot('count', 'price')->withTimestamps();
     }
+
 
     public function coupon()
     {
@@ -29,37 +29,29 @@ class Order extends Model
     public function calculateFullSum()
     {
         $sum = 0;
-        foreach ($this->skus()->withTrashed()->get() as $sku) {
-            $sum += $sku->getPriceForCount();
+        foreach ($this->products()->withTrashed()->get() as $product) {
+            $sum += $product->getPriceForCount();
         }
-        dd($sum);
         return $sum;
     }
-
-    public function getFullSum($withCoupon = true)
+    public function getFullSum()
     {
+        /* подсчет суммы в валюте заказа */
         $sum = 0;
-        foreach ($this->skus as $sku) {
-            $sum += $sku->getPriceInCurrency() * $sku->countInOrder;
+        foreach ($this->products as $product) {
+            $sum += $product->price * $product->countInOrder;
         }
 
-        if ($withCoupon && $this->hasCoupon()) {
-            $sum = $this->coupon->applyCost($sum);
-        }
 
-        //$sum = $this->coupon->applyCost($sum);
-        //dd($sum);
-
-        /* сумма в валюте сессии сайта */
-        $sum = round($sum, 0);
         return $sum;
 
     }
 
     public function saveOrder($name, $phone, $type_address, $address, $comment, $type_payment)
     {
-        $this->name = $name;
+
         $this->phone = $phone;
+        $this->name = $name;
         $this->type_address = $type_address;
         $this->address = $address;
         $this->comment = $comment;
@@ -67,12 +59,13 @@ class Order extends Model
         $this->status = 1;
         $this->label = 'В процессе';
         $this->sum = $this->getFullSum();
-        $skus = $this->skus;
+        $products = $this->products;
         $this->save();
-        foreach ($skus as $skuInOrder) {
-            $this->skus()->attach($skuInOrder, [
-                'count' => $skuInOrder->countInOrder,
-                'price' => $skuInOrder->price
+
+        foreach ($products as $productInOrder) {
+            $this->products()->attach($productInOrder, [
+                'count' => $productInOrder->countInOrder,
+                'price' => $productInOrder->price,
             ]);
         }
         session()->forget('order');

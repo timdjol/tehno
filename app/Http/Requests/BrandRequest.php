@@ -22,7 +22,7 @@ class BrandRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'title' => 'required|min:3|max:255',
+            'title' => 'required|min:2|max:255',
         ];
        return $rules;
     }

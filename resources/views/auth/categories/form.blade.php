@@ -38,41 +38,24 @@
                             <input type="text" name="title" value="{{ old('title', isset($category) ? $category->title :
                              null) }}">
                         </div>
-                        <div class="form-group" id="check">
-                            @foreach([
-                          'parent' => 'Родительская категория',
-                        ] as $field => $title)
-                                <div class="form-group form-label">
-                                    <input type="checkbox" name="{{ $field }}" id="{{ $field }}"
-                                           @if (isset($product) && $product->$field === 1)
-                                               checked="checked"
-                                            @endif>
-                                    <label for="{{ $field }}">{{ $title }}</label>
-                                </div>
-                            @endforeach
-                        </div>
-                            @isset($parents)
-                            <div class="form-group" id="form">
-                                <label for="parent_id">Выбрать из родительской</label>
-                                <select name="parent_id" id="parent_id">
-                                    <option value="0">Выбрать</option>
-                                    @foreach($parents as $parent)
-                                        <option value="{{ $parent->id }}">{{ $parent->title }}</option>
-                                    @endforeach
+                            <div class="form-group">
+                                <label for="">Метка</label>
+                                <select name="tag">
+                                    @isset($category)
+                                        <option value="{{$category->tag}}">{{$category->tag}}</option>
+                                            selected
+                                        @else
+                                        <option>Выбрать</option>
+                                    @endisset
+                                    <option value="all">Все категории</option>
+                                    <option value="spec">Спецпредложение</option>
+                                    <option value="small">Мелкая техника</option>
                                 </select>
                             </div>
-                            @endisset
                         @csrf
                         <button class="more">Отправить</button>
                         <a href="{{url()->previous()}}" class="btn delete cancel">Отмена</a>
                     </form>
-                        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
-                        <script>
-                            $('#check label').click(function(){
-                                $('#form').toggle();
-                            });
-                        </script>
                 </div>
             </div>
         </div>

@@ -1,5 +1,137 @@
-/* 1024 */
+/* КАТАЛОГ 1239 */
+@media (max-width: 1322px) {
+    .catalog__card-description {
+        border-left: none;
+    }
+}
+
+/* КАТАЛОГ-модалка 1153 */
+@media (max-width: 1153px) {
+    .catalog__fast-view img {
+        display: flex;
+    }
+}
+
+/* КАТАЛОГ 780 */
+@media (max-width: 780px) {
+    .left-panel {
+        display: none;
+    }
+
+    .catalog__images {
+        margin: 0 auto;
+    }
+
+    .catalog__card {
+        padding: 30px;
+    }
+
+    .catalog__card-description {
+        border-left: none;
+    }
+}
+
+/* КОРЗИНА - 1280 */
+@media (max-width: 1280px) {
+    .shoppingcart {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        align-items: center;
+    }
+}
+
+/* КОРЗИНА - 640 */
+@media (max-width: 640px) {
+    .shoppingcart__card {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        padding: 15px;
+    }
+
+    .shoppingcart__card-photo {
+        justify-content: center;
+    }
+
+    .shoppingcart__card-price {
+        max-width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: end;
+        gap: 20px;
+        /* justify-content: space-between; */
+        padding: 0 20px 20px 20px;
+    }
+
+    .shoppingcart__card-price-num {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .shoppingcart__order {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+/* КАРТОЧКА-товара - 1080 */
 @media (max-width: 1080px) {
+    .product-card {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        padding: 30px;
+    }
+
+    .product__card-description {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .product__card-description-one {
+        padding: 30px;
+    }
+
+    .product__info {
+        padding: 30px 30px;
+    }
+
+    .product__title {
+        font-size: 30px;
+        line-height: 40px;
+    }
+
+    .product__title-center,
+    .product__text-center {
+        padding: 0 0 30px 0;
+    }
+
+    .product__title-center {
+        font-size: 30px;
+        line-height: 40px;
+    }
+}
+
+/* КАРТОЧКА-товара - 840 */
+@media (max-width: 840px) {
+    .product__card-props {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .product__card-props-item {
+        padding: 30px;
+    }
+
+    .product__card-props-item:not(:last-child) {
+        border-right: none;
+    }
+}
+
+/* 1080 */
+@media (max-width: 1180px) {
     .navbar__dropup-desktop {
         display: none;
     }
@@ -24,7 +156,19 @@
         justify-content: center;
         scale: 1;
     }
-    .home__title {
+
+    #home {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+    }
+
+    .home__title-three {
+        display: flex;
+    }
+
+    .home__title-one,
+    .home__title-two {
         display: none;
     }
 

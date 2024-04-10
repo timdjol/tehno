@@ -1,27 +1,16 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>404</title>
-    <link rel="stylesheet" href="{{route('index')}}/css/main.min.css">
-</head>
-<body>
-<div class="page page-not">
-    <div class="container">
-        <div class="col-md-12">
-            <div class="text-wrap">
-                <h1>{{ __('main.error_title') }}</h1>
-                <h4>@lang('main.error_not')</h4>
-                <div class="btn-wrap">
-                    <a href="{{ route('index') }}">@lang('main.error_back')</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@extends('layouts.master')
+@section('title', '404')
+@section('content')
+<section class="page-404">
+    <img src="{{route('index')}}/img/front/404.webp" alt="404" />
+    <p class="page-404__text">
+        Кажется, вы попали на страницу, которая не существует. Мы
+        извиняемся за неудобства! Пожалуйста, вернитесь на главную
+        страницу, чтобы продолжить свое путешествие по миру бытовой
+        техники
+    </p>
+    <h4><a href="{{route('index')}}">Вернуться на главную страницу</a></h4>
+</section>
 
 <style>
     .page{
@@ -38,5 +27,4 @@
         text-decoration: none;
     }
 </style>
-</body>
-</html>
+@endsection

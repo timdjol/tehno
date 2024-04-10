@@ -1,31 +1,243 @@
 @extends('layouts.master')
 
-@section('title', $category->title)
+@section('title')
 
 @section('content')
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <div class="page products category">
+    <div class="main">
         <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="sidebar">
-                        <h4>Фильтр</h4>
-                    </div>
-                </div>
-                <div class="col-md-9">
+            @if(session()->has('success'))
+                <p class="alert alert-success">{{ session()->get('success') }}</p>
+            @endif
+            @if(session()->has('warning'))
+                <p class="alert alert-warning">{{ session()->get('warning') }}</p>
+            @endif
+            <div class="catalog__address">
+                <div class="catalog__address-path">
                     <h1>{{$category->title }}</h1>
-                    @if($category->products->map->skus->flatten()->isNotEmpty())
-                        @foreach($category->products->map->skus->flatten()->unique('product_id') as $sku)
-                            @include('layouts.card', compact('sku'))
+                </div>
+                <!-- <div class="catalog__address-price">Показать:</div> -->
+            </div>
+            <div class="catalog">
+                <div class="left-panel">
+                    <div class="filter__title">
+                        <img
+                                class="filter__icon"
+                                src="{{route('index')}}/img/front/icons/icon_filter.svg"
+                                alt=""
+                        />
+                        <p>ФИЛЬТР</p>
+                    </div>
+
+                    <!-- фильтр -->
+                    <form action="{{ route('catalog') }}" method="get">
+
+                        <div class="dropdown">
+                            <div class="dropdown-toggle">
+                                <p>Цена от</p>
+                                <img
+                                        class="dropdown-icon"
+                                        src="{{route('index')}}/img/front/icons/icon_arrow.svg"
+                                        alt=""
+                                />
+                            </div>
+                            <div class="dropdown-menu">
+                                <label
+                                ><input
+                                            class="dropdown-menu-inputtext"
+                                            type="text" name="price_from" value="{{ request()->price_from }}"
+                                    />
+
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="dropdown">
+                            <div class="dropdown-toggle">
+                                <p>Цена до</p>
+                                <img
+                                        class="dropdown-icon"
+                                        src="{{route('index')}}/img/front/icons/icon_arrow.svg"
+                                        alt=""
+                                />
+                            </div>
+                            <div class="dropdown-menu">
+                                <label
+                                ><input
+                                            class="dropdown-menu-inputtext"
+                                            type="text" name="price_to" value="{{ request()->price_to }}"
+                                    />
+
+                                </label>
+                            </div>
+                        </div>
+
+                        {{--                        <div class="dropdown">--}}
+                        {{--                            <div class="dropdown-toggle">--}}
+                        {{--                                <p>Тип</p>--}}
+                        {{--                                <img--}}
+                        {{--                                        class="dropdown-icon"--}}
+                        {{--                                        src="{{route('index')}}/img/front/icons/icon_arrow.svg"--}}
+                        {{--                                        alt=""--}}
+                        {{--                                />--}}
+                        {{--                            </div>--}}
+                        {{--                            <div class="dropdown-menu">--}}
+                        {{--                                <label--}}
+                        {{--                                ><input type="checkbox" name="type"/>--}}
+                        {{--                                    <p>Однодверный</p>--}}
+                        {{--                                </label>--}}
+
+                        {{--                                <label--}}
+                        {{--                                ><input type="checkbox" name="type"/>--}}
+                        {{--                                    <p>Двухдверный</p>--}}
+                        {{--                                </label>--}}
+
+                        {{--                                <label--}}
+                        {{--                                ><input type="checkbox" name="type"/>--}}
+                        {{--                                    <p>Многодверный</p>--}}
+                        {{--                                </label>--}}
+
+                        {{--                                <label--}}
+                        {{--                                ><input type="checkbox" name="type"/>--}}
+                        {{--                                    <p>Встраиваемый</p>--}}
+                        {{--                                </label>--}}
+
+                        {{--                                <label--}}
+                        {{--                                ><input type="checkbox" name="type"/>--}}
+                        {{--                                    <p>Отдельностоящий</p>--}}
+                        {{--                                </label>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
+
+                        {{--                        <!-- фильтр -->--}}
+                        {{--                        <div class="dropdown">--}}
+                        {{--                            <div class="dropdown-toggle">--}}
+                        {{--                                <p>Количество камер</p>--}}
+                        {{--                                <img--}}
+                        {{--                                        class="dropdown-icon"--}}
+                        {{--                                        src="{{route('index')}}/img/front/icons/icon_arrow.svg"--}}
+                        {{--                                        alt=""--}}
+                        {{--                                />--}}
+                        {{--                            </div>--}}
+                        {{--                            <div class="dropdown-menu">--}}
+                        {{--                                <label--}}
+                        {{--                                ><input type="checkbox" name="camera"/>--}}
+                        {{--                                    <p>Однодверный</p>--}}
+                        {{--                                </label>--}}
+
+                        {{--                                <label--}}
+                        {{--                                ><input type="checkbox" name="camera"/>--}}
+                        {{--                                    <p>Двухдверный</p>--}}
+                        {{--                                </label>--}}
+
+                        {{--                                <label--}}
+                        {{--                                ><input type="checkbox" name="camera"/>--}}
+                        {{--                                    <p>Многодверный</p>--}}
+                        {{--                                </label>--}}
+
+                        {{--                                <label--}}
+                        {{--                                ><input type="checkbox" name="camera"/>--}}
+                        {{--                                    <p>Встраиваемый</p>--}}
+                        {{--                                </label>--}}
+
+                        {{--                                <label--}}
+                        {{--                                ><input type="checkbox" name="camera"/>--}}
+                        {{--                                    <p>Отдельностоящий</p>--}}
+                        {{--                                </label>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
+
+                        <!-- фильтр -->
+                        <div class="dropdown">
+                            <div class="dropdown-toggle">
+                                <p>Высота</p>
+                                <img
+                                        class="dropdown-icon"
+                                        src="{{route('index')}}/img/front/icons/icon_arrow.svg"
+                                        alt=""
+                                />
+                            </div>
+                            <div class="dropdown-menu">
+                                <label
+                                ><input
+                                            class="dropdown-menu-inputtext"
+                                            type="text" name="height" value="{{ request()->height }}"
+                                    />
+                                    <p>см</p>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- фильтр -->
+                        <div class="dropdown">
+                            <div class="dropdown-toggle">
+                                <p>Ширина</p>
+                                <img
+                                        class="dropdown-icon"
+                                        src="{{route('index')}}/img/front/icons/icon_arrow.svg"
+                                        alt=""
+                                />
+                            </div>
+                            <div class="dropdown-menu">
+                                <label
+                                ><input
+                                            class="dropdown-menu-inputtext"
+                                            type="text" name="width" value="{{ request()->width }}"
+                                    />
+                                    <p>см</p>
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group btn-wrap">
+                            <button class="more btn btn-primary">@lang('main.filter')</button>
+                            <a href="{{ route('catalog') }}" class="reset btn btn-danger">@lang('main.reset')</a>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="right-panel">
+                    @if($category->products->isNotEmpty())
+                        @foreach($category->products->sortByDesc('updated_at') as $product)
+                            @include('layouts.card', compact('product'))
                         @endforeach
                     @else
-                        <div class="alert alert-danger">Продукций не найдено</div>
+                        <div class="not-found">Продукций не найдено</div>
                     @endif
+
                 </div>
             </div>
         </div>
     </div>
 
+    <style>
+        .catalog form button, .catalog form .reset{
+            color: var(--color-white);
+            background-color: var(--color-blue-light);
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-size: var(--font-size-5);
+            font-weight: var(--font-regular);
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.2s ease;
+            border: none;
+            display: block;
+            margin-top: 20px;
+            margin-left: 20px
+        }
+        .catalog form .reset{
+            background-color: red;
+            width: auto;
+            display: inline-block;
+            padding: 2px 30px;
+            margin-top: 10px;
+        }
+    </style>
+
+
+
 @endsection
+

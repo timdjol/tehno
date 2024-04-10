@@ -52,8 +52,6 @@
                                         <ul>
                                             <li><a class="btn view" href="{{ route('products.show', $product)
                                             }}"><i class="fa-regular fa-eye"></i></a></li>
-                                            <li><a class="btn add" href="{{ route('skus.index', $product)
-                                            }}">Skus</a></li>
                                             <li><a class="btn edit" href="{{ route('products.edit', $product)
                                             }}"><i class="fa-regular fa-pen-to-square"></i></a></li>
                                             @csrf

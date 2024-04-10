@@ -28,13 +28,12 @@
                             </div>
                         </div>
                     </div>
-                        <p>Отображено: {{ $allcat->count() }} категорий</p>
+                    <p>Отображено: {{ $categories->count() }} категорий</p>
                     <table class="table">
                         <thead>
                         <tr>
                             <th>#</th>
                             <th>Название</th>
-                            <th>Родитель</th>
                             <th>Действия</th>
                         </tr>
                         </thead>
@@ -42,14 +41,17 @@
                         @foreach($categories as $category)
                             <tr>
                                 <td>{{ $category->id }}</td>
-                                <td>{{ $category->title }}</td>
                                 <td>
-                                    @if($category->parent_id)
-                                        @php $parent = \App\Models\Category::where('id', $category->parent_id)
-                                        ->firstOrFail()
+                                    {{ $category->title }}
+                                    <ul class="subcat">
+                                        @php
+                                            $subcats = \App\Models\Subcategory::where('category_id', $category->id)
+                                            ->get();
                                         @endphp
-                                        {{ $parent->title }}
-                                    @endif
+                                        @foreach($subcats as $subcategory)
+                                            <li>{{ $subcategory->title }}</li>
+                                        @endforeach
+                                    </ul>
                                 </td>
                                 <td>
                                     <form action="{{ route('categories.destroy', $category) }}" method="post">
@@ -66,9 +68,22 @@
                         @endforeach
                         </tbody>
                     </table>
+                    {{ $categories->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>
     </div>
+
+    <style>
+        td ul.subcat {
+            padding-left: 15px;
+        }
+
+        td ul.subcat li {
+            display: block;
+            font-size: 14px;
+            margin: 0;
+        }
+    </style>
 
 @endsection

@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use App\Services\CurrencyConversion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Sku extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['product_id', 'count', 'price'];
+    protected $fillable = ['product_id', 'count', 'price', 'width', 'height'];
 
     public function product(){
         return $this->belongsTo(Product::class);

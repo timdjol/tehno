@@ -60,6 +60,7 @@
                         </tbody>
                     </table>
                     {{ $skus->links() }}
+
                 </div>
             </div>
         </div>

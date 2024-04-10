@@ -50,7 +50,7 @@ class Coupon extends Model
     public function applyCost($price)
     {
         if ($this->isAbsolute()) {
-            return round($price, 2);
+            return round($price - $this->value, 2);
         } else {
             return $price - ($price * $this->value / 100);
         }

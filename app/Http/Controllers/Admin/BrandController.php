@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BrandRequest;
 use App\Models\Brand;
+use App\Models\Product;
 use Illuminate\Support\Str;
 
 
@@ -15,7 +16,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = Brand::paginate(10);
+        $brands = Brand::paginate(20);
         return view('auth.brands.index', compact('brands'));
     }
 
@@ -65,6 +66,7 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
+        Product::where('category_id', $brand->id)->update(['brand_id' => 16]);
         $brand->delete();
         session()->flash('success', 'Бренд ' . $brand->title . ' удален');
         return redirect()->route('brands.index');

@@ -24,13 +24,12 @@ class ProductRequest extends FormRequest
     {
         $rules = [
             'title' => 'required|min:3|max:255',
-            'description' => 'required|min:5',
             'category_id' => 'required',
             'brand_id' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:3048'
-//            'price' => 'required|numeric|min:1',
-//            'count' => 'required|numeric|min:0'
+            'image' => 'mimes:jpeg,png,jpg,gif,svg,avif,webp,avif|max:3000',
+            //'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,webp,avif|max:3000',
+            'price' => 'required|numeric|min:1',
+            'count' => 'required|numeric|min:0',
         ];
         return $rules;
     }
@@ -40,9 +39,9 @@ class ProductRequest extends FormRequest
         return[
             'required'=> 'Поле :attribute обязательно для ввода',
             'min' => 'Поле :attribute должно иметь минимум :min символов',
+            //'images.*' => 'Загрузите изображения',
+            'mimes' => 'Изображение должно быть формата jpeg,png,jpg,gif,svg,webp,avif',
             'image' => 'Загрузите изображение',
-            'images.*' => 'Загрузите изображения',
-            'mimes' => 'Изображение должно быть формата jpeg,png,jpg,gif,svg,webp',
             'max' => 'Размер изображения не должно превышать 3Мб',
         ];
     }

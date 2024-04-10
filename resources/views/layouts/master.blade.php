@@ -55,13 +55,15 @@
             </li>
 
             <li class="li-nav">
-                <div class="input-box">
-                    <input type="text" placeholder="Поиск" />
-                    <img
-                            class="search-button"
-                            src="{{route('index')}}/img/front/icons/icon_search.svg"
-                            alt=""
-                    />
+                <div class="input-box search">
+                    <form action="{{ route('search') }}" method="get">
+                        <input type="search" name="search" placeholder="Поиск" />
+                        <button><img
+                                    class="search-button"
+                                    src="{{route('index')}}/img/front/icons/icon_search.svg"
+                                    alt=""
+                            /></button>
+                    </form>
                 </div>
             </li>
 
@@ -76,11 +78,13 @@
             </li>
 
             <li>
-                <img
-                        class="navbar__icon"
-                        src="{{route('index')}}/img/front/icons/icon_basket.svg"
-                        alt="Корзина"
-                />
+                <a href="{{ route('basket') }}">
+                    <img
+                            class="navbar__icon"
+                            src="{{route('index')}}/img/front/icons/icon_basket.svg"
+                            alt="Корзина"
+                    />
+                </a>
             </li>
 
             <li>
@@ -100,7 +104,7 @@
                 <li><a href="{{ route('login') }}">Вход / Регистрация</a></li>
 
                 <li>
-                    <div class="input-box">
+                    <div class="input-box search">
                         <input type="text" placeholder="Поиск" />
                         <img
                                 class="search-button"
@@ -110,17 +114,16 @@
                     </div>
                 </li>
                 <li class="submenu">
-                    <a href="#">Все категории</a>
+                    <a href="">Все категории</a>
                     <ul>
                         @foreach($categories as $category)
                             <li><a href="{{ route('category', $category->code) }}">{{ $category->title }}</a></li>
                         @endforeach
-
                     </ul>
                 </li>
-                <li><a href="#">Спецпредложение</a></li>
-                <li><a href="#">Мелкая техника</a></li>
-                <li><a href="#">Бренды</a></li>
+                <li><a href="">Спецпредложение</a></li>
+                <li><a href="">Мелкая техника</a></li>
+                <li><a href="">Бренды</a></li>
                 <li class="mobile-contacts">
                     <a
                             href="https://go.2gis.com/bwrd4"
@@ -275,90 +278,25 @@
                         id="navbar__dropup-content-1"
                         class="navbar__dropup-content"
                 >
-                    <div class="navbar__bottom-items">
-                        <a class="navbar__bottom-a" href="#">
-                            <b class="uppercase">
-                                Встраиваемая техника</b
-                            >
-                        </a>
-                        @foreach(\App\Models\Category::where('parent_id', 1)->get() as $category)
-                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
-                        @endforeach
-                    </div>
+                    @php
+                        $categories = \App\Models\Category::where('tag', 'all')->get();
+                    @endphp
+                    @foreach($categories as $category)
+                        <div class="navbar__bottom-items">
+                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">
+                                <b class="uppercase">{{ $category->title }}</b>
+                            </a>
+                            @php
+                                $subcats = \App\Models\Subcategory::where('category_id', $category->id)
+                                ->get();
+                            @endphp
+                            @foreach($subcats as $subcategory)
+                                <a class="navbar__bottom-a" href="{{ route('subcategory', $subcategory->code) }}">{{
+                                $subcategory->title }}</a>
+                            @endforeach
+                        </div>
+                    @endforeach
 
-                    <div class="navbar__bottom-items">
-                        <a class="navbar__bottom-a" href="#">
-                            <b class="uppercase"> Стиральные машины</b>
-                        </a>
-                        @foreach(\App\Models\Category::where('parent_id', 24)->get() as $category)
-                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
-                        @endforeach
-                    </div>
-
-                    <div class="navbar__bottom-items">
-                        <a class="navbar__bottom-a" href="#">
-                            <b class="uppercase"> Телевизоры</b>
-                        </a>
-                        @foreach(\App\Models\Category::where('parent_id', 36)->get() as $category)
-                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
-                        @endforeach
-                    </div>
-
-                    <div class="navbar__bottom-items">
-                        <a class="navbar__bottom-a" href="#">
-                            <b class="uppercase"> Холодильники</b>
-                        </a>
-                        @foreach(\App\Models\Category::where('parent_id', 16)->get() as $category)
-                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
-                        @endforeach
-                    </div>
-
-                    <div class="navbar__bottom-items">
-                        <a class="navbar__bottom-a" href="#">
-                            <b class="uppercase"> Морозильники</b>
-                        </a>
-                        @foreach(\App\Models\Category::where('parent_id', 28)->get() as $category)
-                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
-                        @endforeach
-                    </div>
-
-                    <div class="navbar__bottom-items">
-                        <a class="navbar__bottom-a" href="#">
-                            <b class="uppercase">
-                                Посудомоечные машины</b
-                            >
-                        </a>
-                        @foreach(\App\Models\Category::where('parent_id', 40)->get() as $category)
-                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
-                        @endforeach
-                    </div>
-
-                    <div class="navbar__bottom-items">
-                        <a class="navbar__bottom-a" href="#">
-                            <b class="uppercase"> Кондиционеры</b>
-                        </a>
-                        @foreach(\App\Models\Category::where('parent_id', 3)->get() as $category)
-                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
-                        @endforeach
-                    </div>
-
-                    <div class="navbar__bottom-items">
-                        <a class="navbar__bottom-a" href="#">
-                            <b class="uppercase"> Пылесосы</b>
-                        </a>
-                        @foreach(\App\Models\Category::where('parent_id', 31)->get() as $category)
-                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
-                        @endforeach
-                    </div>
-
-                    <div class="navbar__bottom-items">
-                        <a class="navbar__bottom-a" href="#">
-                            <b class="uppercase"> Ноутбуки</b>
-                        </a>
-                        @foreach(\App\Models\Category::where('parent_id', 44)->get() as $category)
-                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">{{ $category->title }}</a>
-                        @endforeach
-                    </div>
                 </div>
             </div>
         </li>
@@ -370,22 +308,23 @@
                 </button>
                 <div id="navbar__dropup-content-2">
                     <div class="navbar__bottom-items">
-                        <a class="navbar__bottom-a" href="#">
-                            <b class="uppercase"> Спецпредложение</b>
-                        </a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Холодильник и стиральная машина
-                        </a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Духовые шкафы</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Варочные поверхности</a
-                        >
-                        <a class="navbar__bottom-a" href="#">Вытяжки</a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Микроволновые печи</a
-                        >
+                        @php
+                            $cats = \App\Models\Category::where('tag', 'spec')->get();
+                        @endphp
+                        @foreach($cats as $category)
+                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">
+                                <b class="uppercase"> Спецпредложение</b>
+                            </a>
+                            @php
+                                $subcats = \App\Models\Subcategory::where('category_id', $category->id)
+                                ->get();
+                            @endphp
+                            @foreach($subcats as $subcategory)
+                                <a class="navbar__bottom-a" href="{{ route('subcategory', $subcategory->code) }}"
+                                >{{ $subcategory->title }}
+                                </a>
+                            @endforeach
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -398,22 +337,23 @@
                 </button>
                 <div id="navbar__dropup-content-3">
                     <div class="navbar__bottom-items">
-                        <a class="navbar__bottom-a" href="#">
-                            <b class="uppercase"> Мелкая техника</b>
-                        </a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Холодильники</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Духовые шкафы</a
-                        >
-                        <a class="navbar__bottom-a" href="#"
-                        >Варочные поверхности</a
-                        >
-                        <a class="navbar__bottom-a" href="#">Вытяжки</a>
-                        <a class="navbar__bottom-a" href="#"
-                        >Микроволновые печи</a
-                        >
+                        @php
+                            $cats = \App\Models\Category::where('tag', 'small')->get();
+                        @endphp
+                        @foreach($cats as $category)
+                            <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}">
+                                <b class="uppercase"> Мелкая техника</b>
+                            </a>
+                            @php
+                                $subcats = \App\Models\Subcategory::where('category_id', $category->id)
+                                ->get();
+                            @endphp
+                            @foreach($subcats as $subcategory)
+                                <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}"
+                                >{{ $subcategory->title }}
+                                </a>
+                            @endforeach
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -426,11 +366,11 @@
                 </button>
                 <div id="navbar__dropup-content-4">
                     <div class="navbar__bottom-items">
-                        <a class="navbar__bottom-a" href="#">
+                        <a class="navbar__bottom-a" href="{{ route('brands') }}">
                             <b class="uppercase"> Бренды</b>
                         </a>
                         @foreach($brands as $brand)
-                            <a class="navbar__bottom-a" href="#"
+                            <a class="navbar__bottom-a" href="{{ route('brand', $brand->code) }}"
                             >{{ $brand->title }}</a>
                         @endforeach
                     </div>
@@ -438,11 +378,44 @@
             </div>
         </li>
 
-        <li class="navbar__bottom-order">
-            <a class="navbar__bottom-order-a" href="#!"
+        <div class="interior">
+            <a class="btn__modal" href="#open-modal-1"
             >Нужна консультация</a
             >
-        </li>
+        </div>
+        <div id="open-modal-1" class="modal-window">
+            <div class="modal-window-inside">
+                <a href="#!" title="Close" class="modal-close">
+                    <svg
+                            version="1.1"
+                            x="0px"
+                            y="0px"
+                            viewBox="0 0 24 24"
+                            style="enable-background: new 0 0 24 24"
+                            xml:space="preserve"
+                    >
+                                    <path class="st0" d="M4.4,19.6L19.6,4.4" />
+                        <path class="st0" d="M4.4,4.4l15.3,15.3" />
+                                </svg>
+                </a>
+                <div class="modal-form">
+                    <form action="{{ route('form_mail') }}" method="post">
+                        @csrf
+                        <div class="modal-form-title">
+                            Получить консультацию
+                        </div>
+                        <input type="hidden" name="title" value="Консультация">
+                        <input type="text" placeholder="Ваше имя" name="name" />
+                        <input type="tel" placeholder="Ваш WhatsApp" name="phone" required/>
+                        <textarea name="message"
+                                for=""
+                                placeholder="Я присматриваю..."
+                        ></textarea>
+                        <button>Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </ul>
 </div>
 
@@ -577,7 +550,7 @@
                                 <p>{{ $contacts->first()->phone }}</p>
                             </a>
                         </li>
-
+                        @if($contacts->first()->phone2)
                         <li>
                             <a
                                     href="tel:{{ $contacts->first()->phone2 }}"
@@ -624,13 +597,17 @@
                                 <p>{{ $contacts->first()->phone2 }}</p>
                             </a>
                         </li>
+                        @endif
                     </ul>
                 </div>
                 <div class="footer-section">
                     <ul>
-                        @foreach($categories as $category)
-                            <li><a href="{{ route('category', $category->code) }}">{{ $category->title }}</a></li>
-                        @endforeach
+                        <ul>
+                            <li><a href="https://tehnosklad.kg/cat/vstraivaemaia-texnika">Встраиваемая техника</a></li>
+                            <li><a href="">Бытовая техника</a></li>
+                            <li><a href="https://tehnosklad.kg/cat/melkaia-texnika">Мелкая техника</a></li>
+                            <li><a href="{{route('brands')}}">Бренды</a></li>
+                        </ul>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -801,6 +778,36 @@
         </div>
     </section>
 </footer>
+
+<div class="call-button">
+    <div class="pulse">
+        <div class="bloc"></div>
+        <div class="anim-phone"><i class="fa fa-phone" aria-hidden="true"></i></div>
+        <div class="text">Кнопка связи</div>
+        <div class="soc-list">
+            <ul>
+                <!---				<li id="bitrix"><i class="fa fa-comments"></i></li> ---->
+                <li><a rel="nofollow" href="{{ $contacts->first()->phone }}" target="_blank"><i class="fa
+                fa-phone"></i></a></li>
+                <li><a rel="nofollow" href="{{ $contacts->first()->email }}" target="_blank"><i class="fa
+                fa-envelope"></i></a></li>
+                <li><a rel="nofollow" href="{{ $contacts->first()->whatsapp }}" target="_blank"><i class="fa
+                fa-whatsapp"></i></a></li>
+                <li><a rel="nofollow" href="#" class="btn-close"><i class="fa fa-close"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" /><script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+    $('.call-button').click(function() {
+        $('.soc-list').toggle('slow').toggleClass('active');
+    });
+</script>
+
 </body>
 </html>
 

@@ -1,141 +1,199 @@
 @extends('layouts.master')
 
-@section('title', $skus->product->title)
+@section('title', $product->title)
 
 @section('content')
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.min.js"
+            integrity="sha512-cWEytOR8S4v/Sd3G5P1Yb7NbYgF1YAUzlg1/XpDuouZVo3FEiMXbeWh4zewcYu/sXYQR5PgYLRbhf18X/0vpRg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.min.css"
+          integrity="sha512-bjwk1c6AQQOi6kaFhKNrqoCNLHpq8PT+I42jY/il3r5Ho/Wd+QUT6Pf3WGZa/BwSdRSIjVGBsPtPPo95gt/SLg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
 
-    <div class="page single">
+    <div class="main">
         <div class="container">
-            <div class="row">
-                    <div class="col-md-4 col-12">
-                        <a href="{{ Storage::url($skus->product->image) }}">
-                            <img src="{{ Storage::url($skus->product->image) }}" alt="">
-                        </a>
-                        @foreach($images as $image)
-                            <div class="col-md-6">
-                                <a href="{{ Storage::url($image->image) }}">
-                                    <div class="img" style="background-image: url({{ Storage::url($image->image) }})
-                                "></div>
-                                </a>
+            <div class="catalog__address">
+                <div class="catalog__address-path">
+                    {{ $product->category->title }}
+                </div>
+                <!-- <div class="catalog__address-price">Показать:</div> -->
+            </div>
+
+            <div class="product">
+                <div class="product__card">
+                    <div class="product__card-bluetitle-up">
+                        {{ $product->title }}
+                    </div>
+                    <div class="product-card">
+                        <div class="product-card-img">
+                            <div class="fotorama" data-allowfullscreen="true" data-nav="thumbs" data-loop="true"
+                                 data-autoplay="3000">
+                                <img src="{{ Storage::url($product->image) }}" alt="">
+                                @foreach($images as $image)
+                                    <img loading=lazy src="{{ Storage::url($image->image) }}" alt="">
+                                @endforeach
+
                             </div>
-                        @endforeach
-                    </div>
-                <div class="col-md-8">
-                    <h1>{{ $skus->product->title }}</h1>
-                    <div class="cat">
-                        <a href="{{ route('category', $skus->product->category->code) }}">{{
-                    $skus->product->category->title }}</a>
-                    </div>
-                    <div class="price">{{ $skus->price }} сом</div>
-                    @if($skus->isAvailable() == 1)
-                        <div class="stock in">В наличии</div>
-                    @endif
-
-
-                    @isset($skus->product->properties)
-                        <div class="properties">
-                            @foreach($skus->propertyOptions as $propertyOption)
-                                <div class="text">{{ $propertyOption->property->title }}: {{ $propertyOption->title
-                                }}</div>
-                            @endforeach
                         </div>
-                    @endisset
 
+                        <div class="product-info">
+                            <h2>
+                                {{ $product->title }}
+                            </h2>
+                            <p>
+                                {!! $product->short !!}
+                            </p>
+                            <div class="cat">Категория: <a href="{{ route('category', $product->category->code) }}">{{
+                                $product->category->title }}</a>
+                            </div>
+                            <div class="brand">Бренд: <a href="{{ route('brand', $product->brand->code) }}">{{
+                            $product->brand->title }}</a></div>
 
-                    <div class="colors">
-                        <ul>
-                            @foreach($relatedsku as $sku)
-                                @isset($sku->product->properties)
-                                    @foreach($sku->propertyOptions->where('property_id', 1) as $propertyOption)
-                                        <a href="{{ route('sku', [$sku->product->category->code, $sku->product->code,
-                                         $sku]) }}"><span class="color @if($sku->id == $skus->id ){{ 'current' }}@endif"
-                                                          style="background-color: {{ $propertyOption->color }}"></span>
-                                        </a>
-                                    @endforeach
-                                @endisset
-                            @endforeach
-                        </ul>
-                    </div>
+                            <div class="product-info-price">
+                                <p>Цена:</p>
+                                <span> {{ $product->price }} сом</span>
+                            </div>
 
-                    <div class="btn-wrap">
-                        <div class="buy">
-                            @if($skus->isAvailable())
-                                <form action="{{ route('basket-add', $skus) }}" method="post">
-                                    <button class="more btn btn-primary" type="submit">Купить</button>
-                                    @csrf
-                                </form>
-                            @else
-                                <span>Недоступен</span><br>
-                                <span>Подписаться</span>
-                                @if($errors->get('email'))
-                                    <div class="alert alert-warning">
-                                        {!! $errors->get('email')[0] !!}
-                                    </div>
-                                @endif
-                                <form action="{{ route('subscription', $skus) }}" method="post">
-                                    <div class="form-group">
-                                        <input type="text" name="email" placeholder="Email">
-                                    </div>
-                                    @csrf
-                                    <button class="more">@lang('product.send')</button>
-                                </form>
+                            @if($product->isAvailable() == 1)
+                                <div class="stock in">@lang('product.stock')</div>
                             @endif
+                            <form action="{{ route('basket-add', $product) }}" method="post">
+                                <button class="more btn btn-primary" type="submit">Добавить в корзину</button>
+                                @csrf
+                            </form>
                         </div>
-
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="descr">
-                        <h2>Описание</h2>
-                        {!! $skus->product->description !!}
+
+                    <div class="product__card-props">
+                        <div class="product__card-props-item">
+                            <img src="{{ Storage::url($product->imgvant1) }}" alt=""/>
+                            <p>{{ $product->vantdescr }}</p>
+                        </div>
+                        <div class="product__card-props-item">
+                            <img src="{{ Storage::url($product->imgvant2) }}" alt=""/>
+                            <p>{{ $product->vantdescr2 }}</p>
+                        </div>
+                        <div class="product__card-props-item">
+                            <img src="{{ Storage::url($product->imgvant3) }}" alt=""/>
+                            <p>{{ $product->vantdescr3 }}</p>
+                        </div>
+                        <div class="product__card-props-item">
+                            <img src="{{ Storage::url($product->imgvant4) }}" alt=""/>
+                            <p>{{ $product->vantdescr4 }}</p>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-
-
-    @if($category->products->map->skus->flatten()->isNotEmpty())
-        <div class="products related">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>Похожие</h2>
+                    <div class="product__card-description-one">
+                        <div class="product__text-center">
+                            {!! $product->descr1 !!}
+                        </div>
+                        <div class="product__title-img">
+                            <img src="{{ Storage::url($product->imagedescr1) }}" alt=""/>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    @foreach($category->products->map->skus->flatten()->unique('product_id') as $sku)
-                        @if($sku->product->id === $skus->product->id)
 
-                        @else
-                            <div class="col-md-3">
-                                @include('layouts.card', compact('sku'))
+                    <div class="product__card-description-one">
+                        <div class="product__text-center">
+                            {!! $product->descr2 !!}
+                        </div>
+                        <div class="product__title-img">
+                            <img src="{{ Storage::url($product->imagedescr2) }}" alt=""/>
+                        </div>
+                    </div>
+
+                    <div class="product__card-description">
+                        <div class="product__info">
+                            <div class="product__text">
+                                {!! $product->descr3 !!}
                             </div>
-                        @endif
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    @endif
+                        </div>
+                        <img src="{{ Storage::url($product->imagedescr3) }}" alt=""/>
+                    </div>
 
-    <div class="products view viewblock">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>Недавно просмотренные</h2>
+                    <div class="product__card-description">
+                        <img src="{{ Storage::url($product->imagedescr4) }}" alt=""/>
+                        <div class="product__info">
+                            <div class="product__text">
+                                {!! $product->descr4 !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product__card-description">
+                        <div class="product__info">
+                            <div class="product__text">
+                                {!! $product->descr5 !!}
+                            </div>
+                        </div>
+                        <img src="{{ Storage::url($product->imagedescr5) }}" alt=""/>
+                    </div>
+
+                    <div class="product__card-description">
+                        <img src="{{ Storage::url($product->imagedescr6) }}" alt=""/>
+                        <div class="product__info">
+                            <div class="product__text">
+                                {!! $product->descr6 !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product__card-description-one">
+                        <div class="product__text-center">
+                            {!! $product->descr7 !!}
+                        </div>
+                        <img src="{{ Storage::url($product->imagedescr7) }}" alt=""/>
+                        <!-- <div class="product__title-img">
+
+                        </div> -->
+                    </div>
+
+                    <div class="product__card-bluetitle-bottom"></div>
                 </div>
             </div>
-            @foreach($recentlies->unique('product_id') as $sku)
-                @include('layouts.card', compact('sku'))
-            @endforeach
         </div>
     </div>
+
+
+
+    <style>
+        .product__card-description-one img {
+            margin: 10px 0;
+        }
+
+        .single .properties {
+            margin: 20px 0;
+        }
+
+        .single .colors .color {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 8px;
+            position: relative;
+            border: 1px solid #ddd;
+        }
+
+        .single .colors .color.current::after {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            left: -5px;
+            top: -5px;
+            border: 1px solid #ab8e83;
+            border-radius: 50%;
+        }
+
+        .single .colors a {
+            text-decoration: none;
+        }
+    </style>
 
 @endsection
 

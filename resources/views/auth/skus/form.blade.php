@@ -44,27 +44,39 @@
                             <input type="text" name="count" value="@isset($sku){{ $sku->count }}@endisset">
                         </div>
 
-                        <div class="form-group">
-                            @foreach ($product->properties as $property)
-                                <div class="input-group row">
-                                    <label for="property_id[{{ $property->id }}]" class="col-sm-2 col-form-label">{{
+                            <div class="form-group">
+                                <label for="">Высота</label>
+                                @include('auth.layouts.error', ['fieldname' => 'height'])
+                                <input type="text" name="height" value="@isset($sku){{ $sku->height }}@endisset">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Ширина</label>
+                                @include('auth.layouts.error', ['fieldname' => 'width'])
+                                <input type="text" name="width" value="@isset($sku){{ $sku->width }}@endisset">
+                            </div>
+
+                            <div class="form-group">
+                                @foreach ($product->properties as $property)
+                                    <div class="input-group row">
+                                        <label for="property_id[{{ $property->id }}]" class="col-sm-2 col-form-label">{{
                                     $property->title }}: </label>
-                                    <div class="col-sm-4">
-                                        <select name="property_id[{{ $property->id }}]" class="form-control">
-                                            @foreach($property->propertyOptions as $propertyOption)
-                                                <option value="{{ $propertyOption->id }}"
-                                                        @isset($sku)
-                                                            @if($sku->propertyOptions->contains($propertyOption->id))
-                                                                selected
-                                                        @endif
-                                                        @endisset
-                                                >{{ $propertyOption->title }}</option>
-                                            @endforeach
-                                        </select>
+                                        <div class="col-sm-4">
+                                            <select name="property_id[{{ $property->id }}]" class="form-control">
+                                                @foreach($property->propertyOptions as $propertyOption)
+                                                    <option value="{{ $propertyOption->id }}"
+                                                            @isset($sku)
+                                                                @if($sku->propertyOptions->contains($propertyOption->id))
+                                                                    selected
+                                                            @endif
+                                                            @endisset
+                                                    >{{ $propertyOption->title }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                            @endforeach
-                        </div>
+                                @endforeach
+                            </div>
                         <button class="more">Отправить</button>
                         <a href="{{url()->previous()}}" class="btn delete cancel">Отмена</a>
                     </form>

@@ -77,10 +77,10 @@
                             <input type="radio" id="nal" name="type_payment" value="@lang('checkout.cash')" checked>
                             <label for="nal">@lang('checkout.cash')</label>
                         </div>
-                        <div class="form-group">
-                            <input type="radio" id="bank" value="@lang('checkout.card')" name="type_payment">
-                            <label for="bank">@lang('checkout.card')</label>
-                        </div>
+{{--                        <div class="form-group">--}}
+{{--                            <input type="radio" id="bank" value="@lang('checkout.card')" name="type_payment">--}}
+{{--                            <label for="bank">@lang('checkout.card')</label>--}}
+{{--                        </div>--}}
                         <div id="form3">
                             <ul class="tabs">
                                 <li class="current" data-tab="tab-1">@lang('checkout.russia')</li>
@@ -154,5 +154,23 @@
     .tab-content img {
         max-width: 400px;
         margin-bottom: 30px;
+    }
+    .order .btn-success{
+        display: flex;
+        margin: 0 auto;
+        padding: 10px 50px !important;
+        color: #000 !important;
+        background-color: var(--color-orange) !important;
+        border-color: var(--color-orange) !important;
+        border-radius: 30px !important;
+        border: none;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+    .anim-phone{
+        top: 15px;
+    }
+    .btn__modal{
+        color: #000;
     }
 </style>

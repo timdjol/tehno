@@ -3,23 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
-use App\Http\Requests\HomeRequest;
 use App\Http\Requests\OrderRequest;
-use App\Models\Category;
-use App\Models\Coupon;
-use App\Models\Home;
 use App\Models\Order;
-use App\Models\Page;
-use App\Models\Product;
-use App\Models\Faq;
-use App\Models\Slider;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 
 class OrderController extends Controller
@@ -36,8 +25,8 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        $skus = $order->skus()->withTrashed()->get();
-        return view('auth.orders.show', compact('order', 'skus'));
+        $products = $order->products()->withTrashed()->get();
+        return view('auth.orders.show', compact('order', 'products'));
     }
 
 

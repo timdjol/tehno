@@ -27,4 +27,6 @@ class ImageController extends Controller
         session()->flash('success', 'Sku ' . $request->product->title . ' добавлен' );
         return redirect()->route('skus.index', $product);
     }
+
 }
+

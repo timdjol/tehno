@@ -5,10 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>@yield('title') - ТехноСклад</title>
+    <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="{{route('index')}}/img/front/favicon_io/apple-touch-icon.png"
+    />
+    <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="{{route('index')}}/img/front/favicon_io/favicon-32x32.png"
+    />
+    <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="{{route('index')}}/img/front/favicon_io/favicon-16x16.png"
+    />
     <link href="https://cdn.jsdelivr.net/gh/eliyantosarage/font-awesome-pro@main/fontawesome-pro-6.5.1-web/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/main.min.css">
+    <link rel="stylesheet" href="{{route('index')}}/css/main.min.css">
     <link rel="stylesheet" href="{{route('index')}}/css/admin.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="{{route('index')}}/css/style.css">
 </head>
 <body>
 

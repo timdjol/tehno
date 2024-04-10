@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Person;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 
 class OrderController extends Controller
