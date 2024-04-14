@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@yield('title') - Интернет-магазин Tehnosklad.kg</title>
     <link
             rel="apple-touch-icon"
@@ -21,11 +21,12 @@
             sizes="16x16"
             href="{{route('index')}}/img/front/favicon_io/favicon-16x16.png"
     />
-    <link rel="manifest" href="{{route('index')}}/img/front/favicon_io/site.webmanifest" />
-    <link rel="stylesheet" href="{{route('index')}}/css/front/style.css" />
-    <link rel="stylesheet" href="{{route('index')}}/css/front/normalize.css" />
-    <link rel="stylesheet" href="{{route('index')}}/css/front/media.css" />
+    <link rel="manifest" href="{{route('index')}}/img/front/favicon_io/site.webmanifest"/>
+    <link rel="stylesheet" href="{{route('index')}}/css/front/style.css"/>
+    <link rel="stylesheet" href="{{route('index')}}/css/front/normalize.css"/>
     <link rel="stylesheet" href="{{route('index')}}/css/custom.css">
+    <link rel="stylesheet" href="{{route('index')}}/css/front/media.css"/>
+
     <script defer src="{{route('index')}}/js/front/script.js"></script>
 </head>
 <body>
@@ -33,38 +34,38 @@
 <header>
     <div class="navbar__top">
         <a href="{{route('index')}}">
-            <img class="navbar__logo" src="{{route('index')}}/img/front/logo.svg" alt="" />
+            <img class="navbar__logo" src="{{route('index')}}/img/front/logo.svg" alt=""/>
         </a>
         <ul class="navbar__top-ul">
             <li class="li-nav">
-                <a class="navbar__top-a" href="#clients"
+                <a class="navbar__top-a" href="{{ route('index') }}#clients"
                 >Наши клиенты</a
                 >
             </li>
 
             <li class="li-nav">
-                <a class="navbar__top-a" href="#delivery">Доставка</a>
+                <a class="navbar__top-a" href="{{ route('index') }}#delivery">Доставка</a>
             </li>
 
             <li class="li-nav">
-                <a class="navbar__top-a" href="#contacts">Контакты</a>
+                <a class="navbar__top-a" href="{{ route('index') }}#contacts">Контакты</a>
             </li>
 
             <li class="li-nav">
-                <a class="navbar__top-a" href="#faq">FAQ</a>
+                <a class="navbar__top-a" href="{{ route('index') }}#faq">FAQ</a>
             </li>
 
             <li class="li-nav">
-                <div class="input-box search">
-                    <form action="{{ route('search') }}" method="get">
-                        <input type="search" name="search" placeholder="Поиск" />
+
+                    <form action="{{ route('search') }}" method="get" class="input-box search">
+                        <input type="text" name="search" placeholder="Поиск"/>
                         <button><img
                                     class="search-button"
                                     src="{{route('index')}}/img/front/icons/icon_search.svg"
                                     alt=""
                             /></button>
                     </form>
-                </div>
+
             </li>
 
             <li>
@@ -100,58 +101,82 @@
 
         <nav class="menu" id="menu">
             <div class="close-btn" id="close-btn">&times;</div>
-            <ul>
-                <li><a href="{{ route('login') }}">Вход / Регистрация</a></li>
+            <ul class="nav_list">
+                <li><a href="{{ route('login') }}">Профиль</a></li>
 
                 <li>
-                    <div class="input-box search">
-                        <input type="text" placeholder="Поиск" />
+
+                        <form action="{{ route('search') }}" method="get" class="input-box search">
+                        <input type="search" placeholder="Поиск" name="search"/>
                         <img
                                 class="search-button"
                                 src="{{route('index')}}/img/front/icons/icon_search.svg"
                                 alt=""
                         />
-                    </div>
+                        </form>
+
                 </li>
                 <li class="submenu">
-                    <a href="">Все категории</a>
+                    <span>Все категории</span>
                     <ul>
                         @foreach($categories as $category)
                             <li><a href="{{ route('category', $category->code) }}">{{ $category->title }}</a></li>
                         @endforeach
                     </ul>
                 </li>
-                <li><a href="">Спецпредложение</a></li>
-                <li><a href="">Мелкая техника</a></li>
-                <li><a href="">Бренды</a></li>
+
+
+                <li class="submenu">
+                    <span>Спецпредложение</span>
+                    <ul>
+                        @php
+                            $cats = \App\Models\Category::where('tag', 'spec')->get();
+                        @endphp
+                        @foreach($cats as $category)
+                            @php
+                                $subcats = \App\Models\Subcategory::where('category_id', $category->id)
+                                ->get();
+                            @endphp
+                            @foreach($subcats as $subcategory)
+                                <a href="{{ route('subcategory', $subcategory->code) }}"
+                                >{{ $subcategory->title }}
+                                </a>
+                            @endforeach
+                        @endforeach
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <span>Мелкая техника</span>
+                    <ul>
+                        @php
+                            $cats = \App\Models\Category::where('tag', 'small')->get();
+                        @endphp
+                        @foreach($cats as $category)
+                            @php
+                                $subcats = \App\Models\Subcategory::where('category_id', $category->id)
+                                ->get();
+                            @endphp
+                            @foreach($subcats as $subcategory)
+                                <a href="{{ route('subcategory', $subcategory->code) }}"
+                                >{{ $subcategory->title }}
+                                </a>
+                            @endforeach
+                        @endforeach
+                    </ul>
+                </li>
+                <li class="submenu"><span>Бренды</span>
+                    <ul>
+                        @php
+                            $brands = \App\Models\Brand::get();
+                        @endphp
+                        @foreach($brands as $brand)
+                            <a href="{{ route('brand', $brand->code) }}"
+                            >{{ $brand->title }}
+                            </a>
+                        @endforeach
+                    </ul>
+                </li>
                 <li class="mobile-contacts">
-                    <a
-                            href="https://go.2gis.com/bwrd4"
-                            class="footer-section-position"
-                            target="_blank"
-                    >
-                        <svg
-                                class="footer-section-icon-small"
-                                version="1.1"
-                                x="0px"
-                                y="0px"
-                                viewBox="0 0 600 600"
-                                style="enable-background: new 0 0 600 600"
-                                xml:space="preserve"
-                        >
-                                    <path
-                                            d="M302,13.6c-117.4,0-216.9,100-216.9,218.5c0,124.1,115.3,251,192.8,340.1c0.3,0.4,12.8,14.3,28.3,14.3h1.4
-                                            c15.5,0,27.9-13.9,28.2-14.3c72.8-83.6,179-221.6,179-340.1C514.8,113.6,437.3,13.6,302,13.6L302,13.6z M309.2,548.1
-                                            c-0.6,0.6-1.5,1.3-2.3,1.9c-0.8-0.6-1.7-1.3-2.4-1.9l-9.4-10.8C221.6,453,120.9,337.6,120.9,232c0-99,82.9-182.7,181.1-182.7
-                                            c122.3,0,177,91.8,177,182.7C479,312.1,421.9,418.5,309.2,548.1L309.2,548.1z M300.6,122c-59.3,0-107.4,48.1-107.4,107.4
-                                            s48.1,107.4,107.4,107.4S408,288.7,408,229.4S360,122,300.6,122L300.6,122z M300.6,301c-39.5,0-72.4-32.9-72.4-72.4
-                                            s32.1-71.6,71.6-71.6c39.5,0,71.6,32.1,71.6,71.6C371.4,268.1,340.1,301,300.6,301z"
-                                    />
-                                </svg>
-
-                        <p>Мы на карте 2GIS</p>
-                    </a>
-
                     <!-- режим работы -->
 
                     <span class="footer-section-position-nofill">
@@ -176,21 +201,22 @@
 
                                 <p>{{ $contacts->first()->graph }}</p>
                             </span>
-
-                    <a
-                            href="tel:{{ $contacts->first()->phone }}"
-                            class="footer-section-position"
-                            target="_blank"
-                    >
-                        <svg
-                                class="footer-section-icon-small"
-                                version="1.1"
-                                x="0px"
-                                y="0px"
-                                viewBox="0 0 600 600"
-                                style="enable-background: new 0 0 600 600"
-                                xml:space="preserve"
+                    @if($contacts->first()->phone)
+                        <a
+                                href="tel:{{ $contacts->first()->phone }}"
+                                class="footer-section-position"
+                                target="_blank"
                         >
+
+                            <svg
+                                    class="footer-section-icon-small"
+                                    version="1.1"
+                                    x="0px"
+                                    y="0px"
+                                    viewBox="0 0 600 600"
+                                    style="enable-background: new 0 0 600 600"
+                                    xml:space="preserve"
+                            >
                                     <path
                                             d="M389.4,382.4l-15.2-15.3l0,0L389.4,382.4z M402.5,369.4l15.2,15.3l0,0L402.5,369.4z M472.2,360.2l-10.3,19L472.2,360.2z
                                             M527.2,390.2l-10.3,19L527.2,390.2z M542.7,484l15.2,15.3L542.7,484z M501.8,524.7l-15.2-15.3L501.8,524.7z M463.6,544l2,21.5l0,0
@@ -216,23 +242,24 @@
                                             c11.1-11,28.9-13.7,44.1-5.5l20.7-38c-31.2-17-70-12.3-95.2,12.8L417.7,384.7z"
                                     />
                                 </svg>
-                        <p>{{ $contacts->first()->phone }}</p>
-                    </a>
-
-                    <a
-                            href="tel:{{ $contacts->first()->phone2 }}"
-                            class="footer-section-position"
-                            target="_blank"
-                    >
-                        <svg
-                                class="footer-section-icon-small"
-                                version="1.1"
-                                x="0px"
-                                y="0px"
-                                viewBox="0 0 600 600"
-                                style="enable-background: new 0 0 600 600"
-                                xml:space="preserve"
+                            <p>{{ $contacts->first()->phone }}</p>
+                        </a>
+                    @endif
+                    @if($contacts->first()->phone2)
+                        <a
+                                href="tel:{{ $contacts->first()->phone2 }}"
+                                class="footer-section-position"
+                                target="_blank"
                         >
+                            <svg
+                                    class="footer-section-icon-small"
+                                    version="1.1"
+                                    x="0px"
+                                    y="0px"
+                                    viewBox="0 0 600 600"
+                                    style="enable-background: new 0 0 600 600"
+                                    xml:space="preserve"
+                            >
                                     <path
                                             d="M389.4,382.4l-15.2-15.3l0,0L389.4,382.4z M402.5,369.4l15.2,15.3l0,0L402.5,369.4z M472.2,360.2l-10.3,19L472.2,360.2z
                                             M527.2,390.2l-10.3,19L527.2,390.2z M542.7,484l15.2,15.3L542.7,484z M501.8,524.7l-15.2-15.3L501.8,524.7z M463.6,544l2,21.5l0,0
@@ -258,8 +285,9 @@
                                             c11.1-11,28.9-13.7,44.1-5.5l20.7-38c-31.2-17-70-12.3-95.2,12.8L417.7,384.7z"
                                     />
                                 </svg>
-                        <p>{{ $contacts->first()->phone2 }}</p>
-                    </a>
+                            <p>{{ $contacts->first()->phone2 }}</p>
+                        </a>
+                    @endif
                 </li>
             </ul>
         </nav>
@@ -349,7 +377,7 @@
                                 ->get();
                             @endphp
                             @foreach($subcats as $subcategory)
-                                <a class="navbar__bottom-a" href="{{ route('category', $category->code) }}"
+                                <a class="navbar__bottom-a" href="{{ route('subcategory', $subcategory->code) }}"
                                 >{{ $subcategory->title }}
                                 </a>
                             @endforeach
@@ -394,8 +422,8 @@
                             style="enable-background: new 0 0 24 24"
                             xml:space="preserve"
                     >
-                                    <path class="st0" d="M4.4,19.6L19.6,4.4" />
-                        <path class="st0" d="M4.4,4.4l15.3,15.3" />
+                                    <path class="st0" d="M4.4,19.6L19.6,4.4"/>
+                        <path class="st0" d="M4.4,4.4l15.3,15.3"/>
                                 </svg>
                 </a>
                 <div class="modal-form">
@@ -405,11 +433,11 @@
                             Получить консультацию
                         </div>
                         <input type="hidden" name="title" value="Консультация">
-                        <input type="text" placeholder="Ваше имя" name="name" />
+                        <input type="text" placeholder="Ваше имя" name="name"/>
                         <input type="tel" placeholder="Ваш WhatsApp" name="phone" required/>
                         <textarea name="message"
-                                for=""
-                                placeholder="Я присматриваю..."
+                                  for=""
+                                  placeholder="Я присматриваю..."
                         ></textarea>
                         <button>Отправить</button>
                     </form>
@@ -417,6 +445,26 @@
             </div>
         </div>
     </ul>
+    <div class="call-button">
+        <div class="pulse">
+            <div class="bloc"></div>
+            <div class="anim-phone"><i class="fa fa-phone" aria-hidden="true"></i></div>
+            <div class="text">Кнопка связи</div>
+            <div class="soc-list">
+                <ul>
+                    <!---				<li id="bitrix"><i class="fa fa-comments"></i></li> ---->
+                    <li><a rel="nofollow" href="{{ $contacts->first()->phone }}" target="_blank"><i class="fa
+                fa-phone"></i></a></li>
+                    <li><a rel="nofollow" href="{{ $contacts->first()->email }}" target="_blank"><i class="fa
+                fa-envelope"></i></a></li>
+                    <li><a rel="nofollow" href="{{ $contacts->first()->whatsapp }}" target="_blank"><i class="fa
+                fa-whatsapp"></i></a></li>
+                    <li><a rel="nofollow" href="#" class="btn-close"><i class="fa fa-close"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <div class="container">
@@ -441,37 +489,6 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <ul>
-                        <li>
-                            <a
-                                    href="https://go.2gis.com/bwrd4"
-                                    class="footer-section-position"
-                                    target="_blank"
-                            >
-                                <svg
-                                        class="footer-section-icon-small"
-                                        version="1.1"
-                                        x="0px"
-                                        y="0px"
-                                        viewBox="0 0 600 600"
-                                        style="
-                                                enable-background: new 0 0 600
-                                                    600;
-                                            "
-                                        xml:space="preserve"
-                                >
-                                            <path
-                                                    d="M302,13.6c-117.4,0-216.9,100-216.9,218.5c0,124.1,115.3,251,192.8,340.1c0.3,0.4,12.8,14.3,28.3,14.3h1.4
-                                                c15.5,0,27.9-13.9,28.2-14.3c72.8-83.6,179-221.6,179-340.1C514.8,113.6,437.3,13.6,302,13.6L302,13.6z M309.2,548.1
-                                                c-0.6,0.6-1.5,1.3-2.3,1.9c-0.8-0.6-1.7-1.3-2.4-1.9l-9.4-10.8C221.6,453,120.9,337.6,120.9,232c0-99,82.9-182.7,181.1-182.7
-                                                c122.3,0,177,91.8,177,182.7C479,312.1,421.9,418.5,309.2,548.1L309.2,548.1z M300.6,122c-59.3,0-107.4,48.1-107.4,107.4
-                                                s48.1,107.4,107.4,107.4S408,288.7,408,229.4S360,122,300.6,122L300.6,122z M300.6,301c-39.5,0-72.4-32.9-72.4-72.4
-                                                s32.1-71.6,71.6-71.6c39.5,0,71.6,32.1,71.6,71.6C371.4,268.1,340.1,301,300.6,301z"
-                                            />
-                                        </svg>
-
-                                <p>Мы на карте 2GIS</p>
-                            </a>
-                        </li>
 
                         <!-- режим работы -->
                         <li>
@@ -551,24 +568,24 @@
                             </a>
                         </li>
                         @if($contacts->first()->phone2)
-                        <li>
-                            <a
-                                    href="tel:{{ $contacts->first()->phone2 }}"
-                                    class="footer-section-position"
-                                    target="_blank"
-                            >
-                                <svg
-                                        class="footer-section-icon-small"
-                                        version="1.1"
-                                        x="0px"
-                                        y="0px"
-                                        viewBox="0 0 600 600"
-                                        style="
+                            <li>
+                                <a
+                                        href="tel:{{ $contacts->first()->phone2 }}"
+                                        class="footer-section-position"
+                                        target="_blank"
+                                >
+                                    <svg
+                                            class="footer-section-icon-small"
+                                            version="1.1"
+                                            x="0px"
+                                            y="0px"
+                                            viewBox="0 0 600 600"
+                                            style="
                                                 enable-background: new 0 0 600
                                                     600;
                                             "
-                                        xml:space="preserve"
-                                >
+                                            xml:space="preserve"
+                                    >
                                             <path
                                                     d="M389.4,382.4l-15.2-15.3l0,0L389.4,382.4z M402.5,369.4l15.2,15.3l0,0L402.5,369.4z M472.2,360.2l-10.3,19L472.2,360.2z
                                                 M527.2,390.2l-10.3,19L527.2,390.2z M542.7,484l15.2,15.3L542.7,484z M501.8,524.7l-15.2-15.3L501.8,524.7z M463.6,544l2,21.5l0,0
@@ -594,28 +611,28 @@
                                                 c11.1-11,28.9-13.7,44.1-5.5l20.7-38c-31.2-17-70-12.3-95.2,12.8L417.7,384.7z"
                                             />
                                         </svg>
-                                <p>{{ $contacts->first()->phone2 }}</p>
-                            </a>
-                        </li>
+                                    <p>{{ $contacts->first()->phone2 }}</p>
+                                </a>
+                            </li>
                         @endif
                     </ul>
                 </div>
                 <div class="footer-section">
                     <ul>
                         <ul>
-                            <li><a href="https://tehnosklad.kg/cat/vstraivaemaia-texnika">Встраиваемая техника</a></li>
+                            <li><a href="{{ route('index') }}/cat/vstraivaemaia-texnika">Встраиваемая техника</a></li>
                             <li><a href="">Бытовая техника</a></li>
-                            <li><a href="https://tehnosklad.kg/cat/melkaia-texnika">Мелкая техника</a></li>
+                            <li><a href="{{ route('index') }}/cat/melkaia-texnika">Мелкая техника</a></li>
                             <li><a href="{{route('brands')}}">Бренды</a></li>
                         </ul>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <ul>
-                        <li><a href="#clients">Наши клиенты</a></li>
-                        <li><a href="#delivery">Доставка</a></li>
-                        <li><a href="#contacts">Контакты</a></li>
-                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="{{ route('index') }}#clients">Наши клиенты</a></li>
+                        <li><a href="{{ route('index') }}#delivery">Доставка</a></li>
+                        <li><a href="{{ route('index') }}#contacts">Контакты</a></li>
+                        <li><a href="{{ route('index') }}#faq">FAQ</a></li>
                     </ul>
                 </div>
 
@@ -779,31 +796,15 @@
     </section>
 </footer>
 
-<div class="call-button">
-    <div class="pulse">
-        <div class="bloc"></div>
-        <div class="anim-phone"><i class="fa fa-phone" aria-hidden="true"></i></div>
-        <div class="text">Кнопка связи</div>
-        <div class="soc-list">
-            <ul>
-                <!---				<li id="bitrix"><i class="fa fa-comments"></i></li> ---->
-                <li><a rel="nofollow" href="{{ $contacts->first()->phone }}" target="_blank"><i class="fa
-                fa-phone"></i></a></li>
-                <li><a rel="nofollow" href="{{ $contacts->first()->email }}" target="_blank"><i class="fa
-                fa-envelope"></i></a></li>
-                <li><a rel="nofollow" href="{{ $contacts->first()->whatsapp }}" target="_blank"><i class="fa
-                fa-whatsapp"></i></a></li>
-                <li><a rel="nofollow" href="#" class="btn-close"><i class="fa fa-close"></i></a></li>
-            </ul>
-        </div>
-    </div>
-</div>
 
 
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" /><script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+      integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
-    $('.call-button').click(function() {
+    $('.call-button').click(function () {
         $('.soc-list').toggle('slow').toggleClass('active');
     });
 </script>

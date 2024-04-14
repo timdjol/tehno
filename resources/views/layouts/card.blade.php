@@ -1,16 +1,16 @@
 <div class="catalog__card">
     <!-- каталог-блок-1 -->
     <div class="catalog__images">
-        <img
-                class="catalog__image catalog__active"
+        <img data-color="{{ $product->color }}" data-id="{{ $product->id }}"
+                class="catalog__image intro catalog__active"
                 src="{{ Storage::url($product->imagecolor1) }}"
-        />
-        <img
-                class="catalog__image"
+         alt=""/>
+        <img data-color="{{ $product->color2 }}" data-id="{{ $product->id }}"
+                class="catalog__image intro"
                 src="{{ Storage::url($product->imagecolor2) }}"
         />
-        <img
-                class="catalog__image"
+        <img data-color="{{ $product->color3 }}" data-id="{{ $product->id }}"
+                class="catalog__image intro"
                 src="{{ Storage::url($product->imagecolor3) }}"
         />
         <!-- кнопка для модалки -->
@@ -25,10 +25,17 @@
                                         >&times;</span
                                         >
                 <div class="catalog__fast-view">
-                    <img
-                            class="catalog__image catalog__active"
-                            src="{{ Storage::url($product->image) }}"
-                    />
+                    <div class="fotorama" data-allowfullscreen="true" data-nav="thumbs" data-loop="true"
+                         data-autoplay="3000">
+                        <img src="{{ Storage::url($product->image) }}" alt="">
+                        @php
+                            $images = \App\Models\Image::where('product_id', $product->id)->get();
+                        @endphp
+                        @foreach($images as $image)
+                            <img loading=lazy src="{{ Storage::url($image->image) }}" alt="">
+                        @endforeach
+
+                    </div>
                     <div class="fast-view-table">
                         <div
                                 class="catalog__card-text-title"
@@ -61,13 +68,21 @@
             <p>Цвет:</p>
             <div class="catalog__icons">
                 @if($product->color != '#000000')
-                    <div class="catalog__icon white" style="background-color: {{ $product->color }}"></div>
+                    <div class="catalog__icon btn" data-color="{{ $product->color }}" style="background-color: {{ $product->color }}"
+                         data-id="{{
+                    $product->id }}"></div>
                 @endif
                 @if($product->color2 != '#000000')
-                    <div class="catalog__icon grey" style="background-color: {{ $product->color2 }}"></div>
+                    <div class="catalog__icon btn" data-color="{{ $product->color2 }}" style="background-color: {{
+                    $product->color2 }}"
+                         data-id="{{
+                    $product->id }}"></div>
                 @endif
                 @if($product->color3 != '#000000')
-                    <div class="catalog__icon red" style="background-color: {{ $product->color3 }}"></div>
+                    <div class="catalog__icon btn" data-color="{{ $product->color3 }}" style="background-color: {{
+                    $product->color3 }}"
+                         data-id="{{
+                    $product->id }}"></div>
                 @endif
             </div>
         </div>
@@ -75,7 +90,10 @@
             {{ $product->price }} сом
         </div>
         <div class="catalog__card-text-text">
-            {{ $product->short }}
+            @php
+                $short = \Illuminate\Support\Str::words($product->short, 10, ' ...');
+            @endphp
+            {{ $short }}
         </div>
     </div>
 

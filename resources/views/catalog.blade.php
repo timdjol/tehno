@@ -11,6 +11,16 @@
         <p class="alert alert-warning">{{ session()->get('warning') }}</p>
     @endif
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.min.js"
+            integrity="sha512-cWEytOR8S4v/Sd3G5P1Yb7NbYgF1YAUzlg1/XpDuouZVo3FEiMXbeWh4zewcYu/sXYQR5PgYLRbhf18X/0vpRg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.min.css"
+          integrity="sha512-bjwk1c6AQQOi6kaFhKNrqoCNLHpq8PT+I42jY/il3r5Ho/Wd+QUT6Pf3WGZa/BwSdRSIjVGBsPtPPo95gt/SLg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
 
     <div class="main">
         <div class="container">
@@ -22,180 +32,7 @@
             </div>
             <div class="catalog">
                 <div class="left-panel">
-                    <div class="filter__title">
-                        <img
-                                class="filter__icon"
-                                src="{{route('index')}}/img/front/icons/icon_filter.svg"
-                                alt=""
-                        />
-                        <p>ФИЛЬТР</p>
-                    </div>
-
-                    <form action="{{ route('catalog') }}" method="get">
-
-                        <div class="dropdown">
-                            <div class="dropdown-toggle">
-                                <p>Цена от</p>
-                                <img
-                                        class="dropdown-icon"
-                                        src="{{route('index')}}/img/front/icons/icon_arrow.svg"
-                                        alt=""
-                                />
-                            </div>
-                            <div class="dropdown-menu">
-                                <label
-                                ><input
-                                            class="dropdown-menu-inputtext"
-                                            type="text" name="price_from" value="{{ request()->price_from }}"
-                                    />
-
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="dropdown">
-                            <div class="dropdown-toggle">
-                                <p>Цена до</p>
-                                <img
-                                        class="dropdown-icon"
-                                        src="{{route('index')}}/img/front/icons/icon_arrow.svg"
-                                        alt=""
-                                />
-                            </div>
-                            <div class="dropdown-menu">
-                                <label
-                                ><input
-                                            class="dropdown-menu-inputtext"
-                                            type="text" name="price_to" value="{{ request()->price_to }}"
-                                    />
-
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="dropdown">
-                            <div class="dropdown-toggle">
-                                <p>Тип</p>
-                                <img
-                                        class="dropdown-icon"
-                                        src="{{route('index')}}/img/front/icons/icon_arrow.svg"
-                                        alt=""
-                                />
-                            </div>
-                            <div class="dropdown-menu">
-                                <label
-                                ><input type="checkbox" name="type"/>
-                                    <p>Однодверный</p>
-                                </label>
-
-                                <label
-                                ><input type="checkbox" name="type"/>
-                                    <p>Двухдверный</p>
-                                </label>
-
-                                <label
-                                ><input type="checkbox" name="type"/>
-                                    <p>Многодверный</p>
-                                </label>
-
-                                <label
-                                ><input type="checkbox" name="type"/>
-                                    <p>Встраиваемый</p>
-                                </label>
-
-                                <label
-                                ><input type="checkbox" name="type"/>
-                                    <p>Отдельностоящий</p>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- фильтр -->
-                        <div class="dropdown">
-                            <div class="dropdown-toggle">
-                                <p>Количество камер</p>
-                                <img
-                                        class="dropdown-icon"
-                                        src="{{route('index')}}/img/front/icons/icon_arrow.svg"
-                                        alt=""
-                                />
-                            </div>
-                            <div class="dropdown-menu">
-                                <label
-                                ><input type="checkbox" name="camera"/>
-                                    <p>Однодверный</p>
-                                </label>
-
-                                <label
-                                ><input type="checkbox" name="camera"/>
-                                    <p>Двухдверный</p>
-                                </label>
-
-                                <label
-                                ><input type="checkbox" name="camera"/>
-                                    <p>Многодверный</p>
-                                </label>
-
-                                <label
-                                ><input type="checkbox" name="camera"/>
-                                    <p>Встраиваемый</p>
-                                </label>
-
-                                <label
-                                ><input type="checkbox" name="camera"/>
-                                    <p>Отдельностоящий</p>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- фильтр -->
-                        <div class="dropdown">
-                            <div class="dropdown-toggle">
-                                <p>Высота</p>
-                                <img
-                                        class="dropdown-icon"
-                                        src="{{route('index')}}/img/front/icons/icon_arrow.svg"
-                                        alt=""
-                                />
-                            </div>
-                            <div class="dropdown-menu">
-                                <label
-                                ><input
-                                            class="dropdown-menu-inputtext"
-                                            type="text" name="height" value="{{ request()->height }}"
-                                    />
-                                    <p>см</p>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- фильтр -->
-                        <div class="dropdown">
-                            <div class="dropdown-toggle">
-                                <p>Ширина</p>
-                                <img
-                                        class="dropdown-icon"
-                                        src="{{route('index')}}/img/front/icons/icon_arrow.svg"
-                                        alt=""
-                                />
-                            </div>
-                            <div class="dropdown-menu">
-                                <label
-                                ><input
-                                            class="dropdown-menu-inputtext"
-                                            type="text" name="width" value="{{ request()->width }}"
-                                    />
-                                    <p>см</p>
-                                </label>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group btn-wrap">
-                            <button class="more btn btn-primary">@lang('main.filter')</button>
-                            <a href="{{ route('catalog') }}" class="reset btn btn-danger">@lang('main.reset')</a>
-                        </div>
-                    </form>
+                    @include('layouts.filter')
                 </div>
                 <div class="right-panel">
                     @if($products->isNotEmpty())
@@ -214,32 +51,5 @@
             </div>
         </div>
     </div>
-
-    <style>
-        .catalog form button, .catalog form .reset {
-            color: var(--color-white);
-            background-color: var(--color-blue-light);
-            padding: 10px 30px;
-            border-radius: 50px;
-            font-size: var(--font-size-5);
-            font-weight: var(--font-regular);
-            text-align: center;
-            text-transform: uppercase;
-            transition: 0.2s ease;
-            border: none;
-            display: block;
-            margin-top: 20px;
-            margin-left: 20px
-        }
-
-        .catalog form .reset {
-            background-color: #faca00;
-            color: #000;
-            width: auto;
-            display: inline-block;
-            padding: 2px 30px;
-            margin-top: 10px;
-        }
-    </style>
 
 @endsection

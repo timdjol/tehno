@@ -35,42 +35,42 @@
                                     >
                                 </p>
 
-                                <p>{{ $product->short }}</p>
+                                <p> @php
+                                        $short = \Illuminate\Support\Str::words($product->short, 10, ' ...');
+                                    @endphp
+                                    {{ $short }}</p>
                             </div>
 
                             <div class="shoppingcart__card-price">
                                 <div class="shoppingcart__card-price-num">
                                     <span>{{ $product->price }} сом</span>
-{{--                                    <div class="counter-wrap">--}}
-{{--                                        <form action="{{ route('basket-remove', $product) }}" method="post">--}}
-{{--                                            <button type="submit" class="btn btn-danger"--}}
-{{--                                                    @php--}}
-{{--                                                        if($product->countInOrder <= 1){--}}
+                                    <div class="counter-wrap">
+                                        <form action="{{ route('basket-remove', $product) }}" method="post">
+                                            <button type="submit" class="btn btn-danger"
+                                                    @php
+                                                        if($product->countInOrder <= 1){
+                                                            echo 'disabled';
+                                                        }
+                                                    @endphp
+                                            >-</button>
+                                            @csrf
+                                        </form>
+                                        <span class="badge">{{ $product->countInOrder }}</span>
+                                        <form action="{{ route('basket-add', $product) }}" method="post">
+                                            <button type="submit" class="btn btn-success">+</button>
+                                            @csrf
+                                        </form>
 
-{{--                                                        }--}}
-{{--                                                    @endphp--}}
-{{--                                            >-</button>--}}
-{{--                                            @csrf--}}
-{{--                                        </form>--}}
-{{--                                        <span class="badge">{{ $product->countInOrder }}</span>--}}
-{{--                                        <form action="{{ route('basket-add', $product) }}" method="post">--}}
-{{--                                            <button type="submit" class="btn btn-success">+</button>--}}
-{{--                                            @csrf--}}
-{{--                                        </form>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="remove">--}}
-{{--                                        <a href="{{ route('basket-reset') }}" class="more delete">@lang('basket.clear')</a>--}}
-{{--                                    </div>--}}
+                                    </div>
                                 </div>
-
-                                {{--                            <div class="shoppingcart__card-btn">Убрать</div>--}}
+                                <form action="{{ route('basket-delete', $product) }}" method="post">
+                                    @csrf
+                                    <button class="shoppingcart__card-btn">Убрать</button>
+                                </form>
                             </div>
                         </div>
                     @endforeach
-
                 </div>
-
-
 
                 <div class="shoppingcart__order">
                     <div class="shoppingcart__order-block">

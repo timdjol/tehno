@@ -29,7 +29,7 @@
                     <div class="product__card-bluetitle-up">
                         {{ $product->title }}
                     </div>
-                    <div class="product-card">
+                    <div class="product-card" style="gap: 40px">
                         <div class="product-card-img">
                             <div class="fotorama" data-allowfullscreen="true" data-nav="thumbs" data-loop="true"
                                  data-autoplay="3000">
@@ -70,22 +70,30 @@
                     </div>
 
                     <div class="product__card-props">
-                        <div class="product__card-props-item">
-                            <img src="{{ Storage::url($product->imgvant1) }}" alt=""/>
-                            <p>{{ $product->vantdescr }}</p>
-                        </div>
-                        <div class="product__card-props-item">
-                            <img src="{{ Storage::url($product->imgvant2) }}" alt=""/>
-                            <p>{{ $product->vantdescr2 }}</p>
-                        </div>
-                        <div class="product__card-props-item">
-                            <img src="{{ Storage::url($product->imgvant3) }}" alt=""/>
-                            <p>{{ $product->vantdescr3 }}</p>
-                        </div>
-                        <div class="product__card-props-item">
-                            <img src="{{ Storage::url($product->imgvant4) }}" alt=""/>
-                            <p>{{ $product->vantdescr4 }}</p>
-                        </div>
+                        @if($product->imgvant1)
+                            <div class="product__card-props-item">
+                                <img src="{{ Storage::url($product->imgvant1) }}" alt=""/>
+                                <p>{{ $product->vantdescr }}</p>
+                            </div>
+                        @endif
+                        @if($product->imgvant2)
+                            <div class="product__card-props-item">
+                                <img src="{{ Storage::url($product->imgvant2) }}" alt=""/>
+                                <p>{{ $product->vantdescr2 }}</p>
+                            </div>
+                        @endif
+                        @if($product->imgvant3)
+                            <div class="product__card-props-item">
+                                <img src="{{ Storage::url($product->imgvant3) }}" alt=""/>
+                                <p>{{ $product->vantdescr3 }}</p>
+                            </div>
+                        @endif
+                        @if($product->imgvant4)
+                            <div class="product__card-props-item">
+                                <img src="{{ Storage::url($product->imgvant4) }}" alt=""/>
+                                <p>{{ $product->vantdescr4 }}</p>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="product__card-description-one">

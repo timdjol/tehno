@@ -23,8 +23,12 @@
                                <td>{{ $product->title }}</td>
                            </tr>
                            <tr>
-                               <td>Описание</td>
-                               <td>{!! $product->description !!}</td>
+                               <td>Краткое описание</td>
+                               <td>{!! $product->short !!}</td>
+                           </tr>
+                           <tr>
+                               <td>Характеристики</td>
+                               <td>{!! $product->charac !!}</td>
                            </tr>
                            <tr>
                                <td>Категория</td>

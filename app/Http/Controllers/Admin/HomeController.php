@@ -10,9 +10,11 @@ use App\Models\Client;
 use App\Models\Coupon;
 use App\Models\Delivery;
 use App\Models\Faq;
+use App\Models\Form;
 use App\Models\Home;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Subcategory;
 use http\Client\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,18 +25,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
+        $users = Auth::user();
         $categories = Category::get();
+        $subcategories = Subcategory::get();
         $brands = Brand::get();
-        $product = Product::get();
-        $order = Order::get();
-        $coupon = Coupon::get();
+        $products = Product::get();
+        $orders = Order::get();
+        $coupons = Coupon::get();
         $homes = Home::get();
         $clients = Client::get();
         $deliveries = Delivery::get();
+        $forms = Form::get();
         $faqs = Faq::get();
         return view('auth.homes.index',
-            compact('user', 'categories', 'product', 'order', 'coupon', 'homes', 'clients', 'faqs', 'deliveries', 'brands'));
+            compact('users', 'categories', 'subcategories', 'forms', 'products', 'orders', 'coupons', 'homes', 'clients',
+                'faqs', 'deliveries',
+                'brands'));
     }
 
 

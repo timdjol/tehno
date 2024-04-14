@@ -20,7 +20,7 @@ class BasketIsNotEmpty
             return $next($request);
         }
         session()->forget('order');
-        session()->flash('warning', __('basket.empty_cart'));
-        return redirect()->route('index');
+        session()->flash('warning', 'Корзина пустая');
+        return redirect()->route('emptyBasket');
     }
 }

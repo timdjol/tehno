@@ -25,6 +25,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
+    transition: all .3s ease;
 }
 
 html {
@@ -107,7 +108,9 @@ header .navbar__top {
     font-weight: var(--font-medium);
     position: relative;
 }
-
+.navbar__top .menu ul li.submenu a{
+    display: block;
+}
 .navbar__top-a {
     color: var(--color-black);
     cursor: pointer;
@@ -120,7 +123,9 @@ header .navbar__top {
     color: var(--color-white);
     background-color: var(--color-black);
 }
-
+header .navbar__top > a{
+    height: 33.7px;
+}
 .navbar__logo {
     width: 200px;
     transition: 0.3s ease;
@@ -210,11 +215,13 @@ header .navbar__top {
     left: 0;
     right: 0;
     z-index: 1;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
 }
 
 .navbar__bottom-ul {
     display: flex;
-    margin: 0 auto;
     background-color: var(--color-white);
     gap: 40px;
     align-items: center;
@@ -959,10 +966,10 @@ footer {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 80%;
+    width: 90%;
     height: 100%;
     background-color: #fff;
-    padding: 30px;
+    padding: 30px 20px;
     transition: right 0.3s ease;
     z-index: 1000;
     padding-top: 30px;
@@ -998,6 +1005,8 @@ footer {
     font-weight: 200;
     cursor: pointer;
     transition: 0.2s ease;
+    z-index: 99;
+    background-color: #fff;
 }
 
 .close-btn:active {
@@ -1026,7 +1035,7 @@ footer {
 
 .submenu ul {
     display: none;
-    /* padding-left: 25px; */
+    padding-left: 15px;
 }
 
 .submenu.active ul {
@@ -1085,6 +1094,7 @@ footer {
 
 .catalog__address-path {
     font-weight: var(--font-semibold);
+    text-transform: uppercase;
 }
 
 .left-panel {
@@ -1092,13 +1102,20 @@ footer {
     min-width: 300px;
     height: 100%;
     align-items: start;
+}
+.left-panel .filter-wrap{
     border-radius: 50px;
     background-color: var(--color-white);
     font-size: var(--font-size-1);
     font-weight: var(--font-regular);
-    padding-bottom: 50px;
+    padding-bottom: 20px;
 }
-
+.left-panel .mob_filter_title{
+    display: none;
+    padding: 0;
+    padding-bottom: 15px;
+    justify-content: start;
+}
 .right-panel {
     display: block;
     max-width: 1000px;
@@ -1113,6 +1130,7 @@ footer {
     padding: 50px;
     background-color: var(--color-white);
     border-radius: 50px;
+    justify-content: center;
 }
 
 .catalog__card:not(:last-child) {
@@ -1123,6 +1141,7 @@ footer {
 .catalog__images {
     display: block;
     text-align: center;
+    max-width: 200px;
 }
 
 /* .catalog__card-photo img {
@@ -1132,7 +1151,7 @@ footer {
     padding-bottom: 30px;
 } */
 
-.catalog__images a {
+.catalog__images a.catalog__openModalBtn {
     color: var(--color-black);
     border: 1px solid var(--color-black);
     padding: 15px;
@@ -1140,8 +1159,18 @@ footer {
     font-size: var(--font-size-5);
     font-weight: var(--font-regular);
     transition: 0.2s ease;
+    white-space: nowrap;
 }
-
+.catalog__images a.catalog__card-description-btn{
+    display: inline-block;
+    width: 200px;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 50px;
+    font-size: var(--font-size-5);
+    font-weight: var(--font-regular);
+}
 .catalog__images a:hover {
     border: 1px solid var(--color-orange);
     background-color: var(--color-orange);
@@ -1154,6 +1183,7 @@ footer {
     padding: 0 20px;
     font-size: var(--font-size-5);
     font-weight: var(--font-regular);
+    /*justify-content: center;*/
 }
 
 .catalog__card-text-title {
@@ -1186,7 +1216,7 @@ footer {
 
 /* карточка - каталог - описание 3-колонка */
 .catalog__card-description {
-    max-width: 280px;
+    max-width: 232px;
     font-size: var(--font-size-5);
     font-weight: var(--font-regular);
     border-left: 1px solid var(--color-grey);
@@ -1222,6 +1252,7 @@ footer {
     display: none;
     max-width: 200px;
     padding-bottom: 30px;
+    width: 100%;
     /* height: 200px; */
 }
 
@@ -1327,15 +1358,17 @@ footer {
         background-color: var(--color-orange);
     }
 }
-
+.catalog__modal table td:nth-child(2){
+    font-weight: bold;
+    background-color: transparent;
+}
 table {
-    display: flex;
     width: 100%;
     border: 1px solid #ddd;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
-th {
+table td:nth-child(2) {
     text-align: left;
     font-size: 14px;
     padding: 5px 10px;
@@ -1390,7 +1423,9 @@ td {
     width: 22px;
     height: 22px;
 }
-
+.dropdown-icon.active{
+    transform: rotate(180deg);
+}
 .dropdown-menu {
     display: none;
 }
@@ -1403,6 +1438,8 @@ td {
 
 .dropdown-menu label input {
     border: 0.5px solid var(--color-bg);
+    border-radius: 20px;
+    max-width: 150px;
 }
 
 .dropdown-menu-inputtext {
@@ -1464,6 +1501,9 @@ td {
     width: 100%;
     object-fit: cover;
 }
+.product__card-description .product__text{
+    padding: 0 20px;
+}
 
 .product__info {
     width: 100%;
@@ -1489,19 +1529,27 @@ td {
     text-align: center;
     padding: 40px 100px;
 }
-
 .product__text-center {
-    padding-top: 20px;
     font-size: var(--font-size-1);
     font-weight: var(--font-regular);
     text-align: center;
-    padding: 0px 200px 40px 200px;
+    padding: 20px 100px 40px;
 }
 
 .product__card-description-one img {
     display: flex;
     width: 100%;
     object-fit: cover;
+}
+.product__card-description-one h1, .product__card-description-one h2, .product__card-description h1, .product__card-description h2{
+    font-weight: var(--font-medium);
+    line-height: 1.35;
+    text-align: center;
+    padding: 40px 100px;
+    font-size: 32px;
+}
+.product__card-description-one h2{
+    font-size: var(--font-size-4);
 }
 
 .product-card {
@@ -1599,6 +1647,7 @@ td {
 }
 
 .shoppingcart__card {
+    align-items: center;
     display: flex;
     max-width: 950px;
     /* height: 100%; */
@@ -1656,12 +1705,13 @@ td {
 }
 
 .shoppingcart__card-photo {
-    display: flex;
+    min-width: 200px;
+    max-width: 250px;
 }
 
 .shoppingcart__card-photo img {
-    width: 150px;
-    height: 150px;
+    width: 100%;
+    height: auto;
 }
 
 .shoppingcart__card-photo p {
@@ -1773,4 +1823,9 @@ td {
 .cart > button:hover {
     color: var(--color-black);
     background-color: var(--color-white);
+}
+.nav_list{
+    height: 100vh;
+    overflow-y: scroll;
+    padding-bottom: 60px;
 }

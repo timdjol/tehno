@@ -17,23 +17,23 @@
                     @if(session()->has('warning'))
                         <p class="alert alert-warning">{{ session()->get('warning') }}</p>
                     @endif
-                    <h1>Добро пожаловать {{ $user->name }}</h1>
+                    <h1>Добро пожаловать {{ $users->name }}</h1>
                     <div class="row justify-content-center">
                         <div class="col-md-4">
                             <div class="dashboard-item">
-                                <div class="num">{{ $order->count() }}</div>
+                                <div class="num">{{ $orders->count() }}</div>
                                 <h5>Количество <br> заказов</h5>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="dashboard-item">
-                                <div class="num">{{ $user->count() }}</div>
-                                <h5>Количество <br> пользователей</h5>
+                                <div class="num">{{ $forms->count() }}</div>
+                                <h5>Количество <br> заявок</h5>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="dashboard-item">
-                                <div class="num">{{ $product->count() }}</div>
+                                <div class="num">{{ $products->count() }}</div>
                                 <h5>Количество <br> продукций</h5>
                             </div>
                         </div>
@@ -45,14 +45,26 @@
                         </div>
                         <div class="col-md-4">
                             <div class="dashboard-item">
+                                <div class="num">{{ $subcategories->count() }}</div>
+                                <h5>Количество <br> подкатегорий</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="dashboard-item">
                                 <div class="num">{{ $brands->count() }}</div>
                                 <h5>Количество <br> брендов</h5>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="dashboard-item">
-                                <div class="num">{{ $coupon->count() }}</div>
+                                <div class="num">{{ $coupons->count() }}</div>
                                 <h5>Количество <br> купонов</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="dashboard-item">
+                                <div class="num">{{ $users->count() }}</div>
+                                <h5>Количество <br> пользователей</h5>
                             </div>
                         </div>
                     </div>

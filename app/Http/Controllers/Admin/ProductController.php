@@ -55,7 +55,7 @@ class ProductController extends Controller
             if($product->imagecolor1 != null) {
                 Storage::delete($product->imagecolor1);
             }
-            $path = $request->file('imagecolor1')->store('products');
+            $path = $request->file('imagecolor1')->store('colors');
             $params['imagecolor1'] = $path;
         }
 
@@ -64,7 +64,7 @@ class ProductController extends Controller
             if($product->imagecolor2 != null) {
                 Storage::delete($product->imagecolor2);
             }
-            $path = $request->file('imagecolor2')->store('products');
+            $path = $request->file('imagecolor2')->store('colors');
             $params['imagecolor2'] = $path;
         }
 
@@ -73,7 +73,7 @@ class ProductController extends Controller
             if($product->imagecolor3 != null) {
                 Storage::delete($product->imagecolor3);
             }
-            $path = $request->file('imagecolor3')->store('products');
+            $path = $request->file('imagecolor3')->store('colors');
             $params['imagecolor3'] = $path;
         }
 
@@ -82,7 +82,7 @@ class ProductController extends Controller
             if($product->imgvant1 != null) {
                 Storage::delete($product->imgvant1);
             }
-            $path = $request->file('imgvant1')->store('products');
+            $path = $request->file('imgvant1')->store('vantages');
             $params['imgvant1'] = $path;
         }
         unset($params['imgvant2']);
@@ -90,7 +90,7 @@ class ProductController extends Controller
             if($product->imgvant2 != null) {
                 Storage::delete($product->imgvant2);
             }
-            $path = $request->file('imgvant2')->store('products');
+            $path = $request->file('imgvant2')->store('vantages');
             $params['imgvant2'] = $path;
         }
         unset($params['imgvant3']);
@@ -98,7 +98,7 @@ class ProductController extends Controller
             if($product->imgvant3 != null) {
                 Storage::delete($product->imgvant3);
             }
-            $path = $request->file('imgvant3')->store('products');
+            $path = $request->file('imgvant3')->store('vantages');
             $params['imgvant3'] = $path;
         }
         unset($params['imgvant4']);
@@ -106,7 +106,7 @@ class ProductController extends Controller
             if($product->imgvant4 != null) {
                 Storage::delete($product->imgvant4);
             }
-            $path = $request->file('imgvant4')->store('products');
+            $path = $request->file('imgvant4')->store('vantages');
             $params['imgvant4'] = $path;
         }
 
@@ -240,7 +240,7 @@ class ProductController extends Controller
             if($product->imagecolor1 != null) {
                 Storage::delete($product->imagecolor1);
             }
-            $path = $request->file('imagecolor1')->store('products');
+            $path = $request->file('imagecolor1')->store('colors');
             $params['imagecolor1'] = $path;
         }
 
@@ -249,7 +249,7 @@ class ProductController extends Controller
             if($product->imagecolor2 != null) {
                 Storage::delete($product->imagecolor2);
             }
-            $path = $request->file('imagecolor2')->store('products');
+            $path = $request->file('imagecolor2')->store('colors');
             $params['imagecolor2'] = $path;
         }
 
@@ -258,7 +258,7 @@ class ProductController extends Controller
             if($product->imagecolor3 != null) {
                 Storage::delete($product->imagecolor3);
             }
-            $path = $request->file('imagecolor3')->store('products');
+            $path = $request->file('imagecolor3')->store('colors');
             $params['imagecolor3'] = $path;
         }
 
@@ -267,7 +267,7 @@ class ProductController extends Controller
             if($product->imgvant1 != null) {
                 Storage::delete($product->imgvant1);
             }
-            $path = $request->file('imgvant1')->store('products');
+            $path = $request->file('imgvant1')->store('vantages');
             $params['imgvant1'] = $path;
         }
         unset($params['imgvant2']);
@@ -275,7 +275,7 @@ class ProductController extends Controller
             if($product->imgvant2 != null) {
                 Storage::delete($product->imgvant2);
             }
-            $path = $request->file('imgvant2')->store('products');
+            $path = $request->file('imgvant2')->store('vantages');
             $params['imgvant2'] = $path;
         }
         unset($params['imgvant3']);
@@ -283,7 +283,7 @@ class ProductController extends Controller
             if($product->imgvant3 != null) {
                 Storage::delete($product->imgvant3);
             }
-            $path = $request->file('imgvant3')->store('products');
+            $path = $request->file('imgvant3')->store('vantages');
             $params['imgvant3'] = $path;
         }
         unset($params['imgvant4']);
@@ -291,7 +291,7 @@ class ProductController extends Controller
             if($product->imgvant4 != null) {
                 Storage::delete($product->imgvant4);
             }
-            $path = $request->file('imgvant4')->store('products');
+            $path = $request->file('imgvant4')->store('vantages');
             $params['imgvant4'] = $path;
         }
 
