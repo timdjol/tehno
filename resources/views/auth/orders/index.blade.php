@@ -55,7 +55,7 @@
                                         <form action="{{ route('orders.destroy', $order) }}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn delete"><i class="fa-regular fa-trash"></i></button>
+                                            <button onclick="return confirm('Вы уверены, что хотите удалить?')" class="btn delete"><i class="fa-regular fa-trash"></i></button>
                                         </form>
                                         @endadmin
                                     </ul>

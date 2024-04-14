@@ -51,7 +51,7 @@
                                             }}"><i class="fa-regular fa-pen-to-square"></i></a></li>
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn delete"><i class="fa-regular fa-trash"></i></button>
+                                            <button onclick="return confirm('Вы уверены, что хотите удалить?')" class="btn delete"><i class="fa-regular fa-trash"></i></button>
                                         </ul>
                                     </form>
                                 </td>

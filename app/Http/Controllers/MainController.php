@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductsFilterRequest;
-use App\Http\Requests\SubscriptionRequest;
-use App\Mail\ContactMail;
 use App\Mail\FormMail;
-use App\Mail\TravelMail;
+use App\Mail\OrderCreated;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Client;
-use App\Models\Currency;
 use App\Models\Delivery;
 use App\Models\Form;
 use App\Models\Home;
@@ -18,23 +15,21 @@ use App\Models\Image;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Faq;
-use App\Models\Sku;
-use App\Models\Slider;
 use App\Models\Subcategory;
-use App\Models\Subscription;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+//use Spatie\LaravelPdf\Facades\Pdf;
+
 
 class MainController extends Controller
 {
     public function index()
     {
-        $homes = Home::get();
-        $clients = Client::get();
-        $deliveries = Delivery::get();
-        $faqs = Faq::get();
+        $homes = Home::all();
+        $clients = Client::all();
+        $deliveries = Delivery::all();
+        $faqs = Faq::all();
+
         return view('index', compact('homes', 'clients', 'deliveries', 'faqs'));
     }
 
@@ -50,6 +45,10 @@ class MainController extends Controller
             $productsQuery->where('price', '<=', $request->price_to);
         }
 
+        if ($request->filled('type')) {
+            $productsQuery->where('type', $request->type);
+        }
+
 
         if ($request->filled('height')) {
             $productsQuery->where('height', $request->height);
@@ -58,6 +57,8 @@ class MainController extends Controller
         if ($request->filled('width')) {
             $productsQuery->where('width', $request->width);
         }
+
+
 
 //        foreach (['type', 'camera'] as $field) {
 //            if ($request->has($field)) {
@@ -124,6 +125,7 @@ class MainController extends Controller
         $params = $request->all();
         Form::create($params);
         Mail::to('laravel@timdjol.com')->send(new FormMail($request));
+        session()->flash('success', 'Заявка отправлена');
         return redirect()->route('index');
     }
 
@@ -131,8 +133,9 @@ class MainController extends Controller
     {
         $params = $request->all();
         Order::create($params);
-        Mail::to('info@tehnosklad.kg')->send(new OrderMail($request));
-        return redirect()->route('categorytravel');
+        Mail::to('laravel@timdjol.com')->send(new OrderCreated($request));
+        session()->flash('success', 'Заказ в процессе');
+        return redirect()->route('index');
     }
 
     public function search()
@@ -142,6 +145,11 @@ class MainController extends Controller
             ->where('title', 'like', '%'.$title.'%')
             ->get();
         return view('search', compact('search'));
+    }
+    
+    public function emptyBasket()
+    {
+        return view('empty');
     }
 
 

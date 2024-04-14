@@ -80,7 +80,6 @@ class Basket
         $pivotRow = $this->order->products->where('id', $product->id)->first();
         if ($this->order->products->contains($product)) {
             $pivotRow = $this->order->products->where('id', $product->id)->first();
-            dd($pivotRow);
             if ($pivotRow->countInOrder < 1) {
 
                 $this->order->products->pop($product);

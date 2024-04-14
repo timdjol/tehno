@@ -35,6 +35,7 @@
                             <th>Название</th>
                             <th>Категория</th>
                             <th>Бренд</th>
+                            <th>Цена</th>
                             {{--                            <th>Кол-во пред</th>--}}
                             <th>Действия</th>
                         </tr>
@@ -46,7 +47,7 @@
                                 <td>{{ $product->title }}</td>
                                 <td>{{ $product->category->title }}</td>
                                 <td>{{ $product->brand->title }}</td>
-{{--                                <td>{{ dd($product->sku) }}</td>--}}
+                                <td>{{ $product->price }} сом</td>
                                 <td>
                                     <form action="{{ route('products.destroy', $product) }}" method="post">
                                         <ul>
@@ -56,7 +57,7 @@
                                             }}"><i class="fa-regular fa-pen-to-square"></i></a></li>
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn delete"><i class="fa-regular fa-trash"></i></button>
+                                            <button onclick="return confirm('Вы уверены, что хотите удалить?')" class="btn delete"><i class="fa-regular fa-trash"></i></button>
                                         </ul>
                                     </form>
                                 </td>

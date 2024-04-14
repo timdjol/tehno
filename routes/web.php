@@ -56,7 +56,6 @@ Route::middleware('auth')->group(function ()
             Route::resource("coupons", "App\Http\Controllers\Admin\CouponController");
             Route::resource("forms", "App\Http\Controllers\Admin\FormController");
 
-
             Route::get('subcatories/{id}', [ProductController::class, 'loadSubCategories']);
 
 
@@ -72,8 +71,9 @@ require __DIR__ . '/auth.php';
 
 
 Route::get('/', [MainController::class, 'index'])->name('index');
+Route::get('/empty', [MainController::class, 'emptyBasket'])->name('emptyBasket');
 Route::get('/catalog', [MainController::class, 'catalog'])->name('catalog');
-Route::get('/categories', [MainController::class, 'categories'])->name('categories');
+//Route::get('/categories', [MainController::class, 'categories'])->name('categories');
 Route::get('/cat/{category}', [MainController::class, 'category'])->name('category');
 Route::get('/sub/{subcategory}', [MainController::class, 'subcategory'])->name('subcategory');
 Route::get('/cat/{category}/{product}', [MainController::class, 'product'])->name('product');
@@ -92,11 +92,8 @@ Route::group([], function (){
         Route::get('/order', [BasketController::class, 'order'])->name('order');
         Route::post('/order/confirm', [BasketController::class, 'orderConfirm'])->name('order-confirm');
         Route::post('/basket/remove/{product}', 'App\Http\Controllers\BasketController@basketRemove')->name('basket-remove');
+        Route::post('/basket/delete/{product}', 'App\Http\Controllers\BasketController@basketDelete')->name('basket-delete');
         Route::post('/basket/coupon', 'App\Http\Controllers\BasketController@setCoupon')->name('set-coupon');
     });
 });
-
-
-
-
 
